@@ -2,15 +2,27 @@
 exe :
 	@echo "Hello World"
 
-all : venv run
+all : env init
 
-venv:
+env:
+	cp .env.example .env
+
+init:
 	python3 -m venv venv
-	venv/bin/activate
-	pip install Flask
+	. ./venv/bin/activate; pip install -r requirements.txt
 
 run :
 	flask run
 
-stop :
-	deactivate
+clean :
+	rm -rf .env
+	rm -rf venv
+	rm -rf __pycache__
+
+pylint :
+	-pylint --rcfile ./pylintrc ./**/*.py
+
+pycodestyle :
+	pycodestyle --config=./pycodestyle ./**/*.py
+
+.PHONY: exe all env init run clean pylint pycodestyle
