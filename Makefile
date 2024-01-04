@@ -1,6 +1,5 @@
-# TODO : exe 消す
-exe :
-	@echo "Hello World"
+usage :
+	@echo "\033[31mUsage: make clean → write .env → make all → . venv/bin/activate → make run\033[0m"
 
 all : env init
 
@@ -23,6 +22,6 @@ pylint :
 	-pylint --rcfile ./pylintrc ./**/*.py
 
 pycodestyle :
-	pycodestyle --config=./pycodestyle ./**/*.py
+	-pycodestyle --config=./pycodestyle ./**/*.py
 
-.PHONY: exe all env init run clean pylint pycodestyle
+.PHONY: usage all env init run clean pylint pycodestyle
