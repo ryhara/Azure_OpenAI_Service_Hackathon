@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  flask:
+    build :
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: flask
+    image: flask:my
+    networks:
+      - flask-network
+    ports:
+      - 5001:5001
+    volumes:
+      - flask:/app/flask_app
+    restart: always
+    env_file:
+      - ./.env
+
+networks:
+  flask-network:
+    name: flask-network
+
+volumes:
+  flask:
+    name: flask
+    driver: local
+    driver_opts:
+      type: bind
+      device: ./flask_app
+      o: bind
