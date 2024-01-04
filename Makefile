@@ -19,6 +19,7 @@ clean :
 	rm -rf .env
 	rm -rf venv
 	rm -rf ./flask_app/__pycache__
+	rm -rf ./flask_app/views/__pycache__
 
 pylint :
 	-pylint --rcfile ./pylintrc ./**/*.py
