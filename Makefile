@@ -26,6 +26,8 @@ pylint :
 pycodestyle :
 	-pycodestyle --config=./pycodestyle ./**/*.py
 
+all : build up
+
 build :
 	docker compose -f $(DOCKER_COMPOSE_YML) build --no-cache
 
