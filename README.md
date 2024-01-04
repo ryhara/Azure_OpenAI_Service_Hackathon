@@ -1,9 +1,40 @@
-# Team Penguins Project
+# Penguins Team Project
 このリポジトリは[Azure OpenAI Service　大学生向けハッカソン](https://hackathon2024xseedshub.peatix.com/)予選のためのリポジトリです。
 
-This repository is for the qualifying round of the "Azure OpenAI Service University Student Hackathon".
+This repository is for the qualifying round of the "Azure OpenAI Service for University Student Hackathon".
 
 ## Development Environment
+- M1 MacBook Air / macOS Sonoma 14.2.1
+- Python 3.9.6
+- pip list
+```
+Package            Version
+------------------ -------
+astroid            3.0.2
+blinker            1.7.0
+click              8.1.7
+dill               0.3.7
+Flask              3.0.0
+Flask-SQLAlchemy   3.1.1
+importlib-metadata 7.0.1
+isort              5.13.2
+itsdangerous       2.1.2
+Jinja2             3.1.2
+MarkupSafe         2.1.3
+mccabe             0.7.0
+pip                21.2.4
+platformdirs       4.1.0
+pycodestyle        2.11.1
+pylint             3.0.3
+python-dotenv      1.0.0
+setuptools         58.0.4
+SQLAlchemy         2.0.25
+tomli              2.0.1
+tomlkit            0.12.3
+typing_extensions  4.9.0
+Werkzeug           3.0.1
+zipp               3.17.0
+```
 
 ## Usage
 
