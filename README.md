@@ -10,6 +10,8 @@ This repository is for the qualifying round of the "Azure OpenAI Service Univers
 ## Directory
 ```
 .
+├── .env.example
+├── .gitignore
 ├── Makefile
 ├── README.md
 ├── flask_app
@@ -21,7 +23,8 @@ This repository is for the qualifying round of the "Azure OpenAI Service Univers
 │   │   └── js
 │   │       └── custom.js
 │   ├── templates
-│   │   └── index.html
+│   │   ├── index.html
+│   │   └── layout.html
 │   └── views
 │       └── sample.py
 ├── instance
