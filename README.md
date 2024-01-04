@@ -13,7 +13,7 @@ This repository is for the qualifying round of the "Azure OpenAI Service Univers
 ├── Makefile
 ├── README.md
 └── flask-app
-	├── __init__.py
+    ├── __init__.py
     ├── app.py
     ├── static
     ├── templates
