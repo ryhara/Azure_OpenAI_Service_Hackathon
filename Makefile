@@ -1,5 +1,5 @@
 usage :
-	@echo "\033[31mUsage: make clean → write .env → make all → . venv/bin/activate → make run\033[0m"
+	@echo "\033[31mUsage: make clean → write .env(SEACRET_KEY, API_KEY) → make all → . venv/bin/activate → make run\033[0m"
 
 all : env init
 
