@@ -13,6 +13,8 @@ def create_app():
     db.init_app(app)
 
     # Blueprint
-    from flask_app.views.sample import sample_bp
-    app.register_blueprint(sample_bp)
+    from flask_app.views.manual import manual_bp
+    from flask_app.views.chat import chat_bp
+    app.register_blueprint(manual_bp)
+    app.register_blueprint(chat_bp)
     return app
