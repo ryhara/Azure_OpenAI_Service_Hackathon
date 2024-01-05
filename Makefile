@@ -22,10 +22,10 @@ clean :
 	rm -rf ./flask_app/views/__pycache__
 
 pylint :
-	-pylint --rcfile ./pylintrc ./**/*.py
+	-pylint --rcfile ./linter/pylintrc ./**/*.py
 
 pycodestyle :
-	-pycodestyle --config=./pycodestyle ./**/*.py
+	-pycodestyle --config=./linter/pycodestyle ./**/*.py
 
 all : build up
 
