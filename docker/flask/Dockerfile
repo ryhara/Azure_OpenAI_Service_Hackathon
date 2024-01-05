@@ -2,7 +2,7 @@ FROM python:3.9.6
 
 RUN mkdir -p /app
 RUN mkdir -p /app/instance
-COPY ./requirements.txt /app/requirements.txt
+COPY ./docs/requirements.txt /app/requirements.txt
 COPY ./instance/config.py /app/instance/config.py
 
 WORKDIR /app
