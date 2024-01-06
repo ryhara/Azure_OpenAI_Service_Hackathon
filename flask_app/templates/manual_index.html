@@ -2,8 +2,41 @@
 
 {% block body %}
 
-<div class="container">
-	<p>manual Page</p>
+<div class="container mt-5">
+	<div class="mb-3">
+    <h1 class="text-center">User's Manual <i class="bi bi-book"></i></h1>
+    <p class="text-center">This page will help you understand how to use our chat application.</p>
+	</div>
+
+	<div>
+    <section id="getting-started" class="mt-2">
+        <h2>Getting Started</h2>
+        <p>
+					<!-- TODO : ここにアプリ全体の簡単な使い方を書く -->
+            <!-- Detailed instructions on getting started with the app. -->
+            To begin using the chat application, start by ...
+        </p>
+    </section>
+		<hr>
+    <section id="sending-messages" class="mt-2">
+        <h2>Sending Messages</h2>
+        <p>
+						<!-- TODO : ここにメッセージの送り方を書く -->
+            <!-- Instructions on how to send messages. -->
+            To send a message, type your text in the input box and press Enter or click the send button. The message will be displayed in the chat window, and you will receive a response shortly.
+        </p>
+    </section>
+		<hr>
+    <section id="features" class="mt-2">
+        <h2>Features</h2>
+        <p>
+					<!-- TODO : ここにアプリの特徴を書く -->
+            <!-- Description of any additional features. -->
+            Our chat application also offers several features such as ...
+        </p>
+    </section>
+		<hr>
+	</div>
 </div>
 
 {% endblock %}

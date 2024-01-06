@@ -15,6 +15,9 @@ init:
 run :
 	flask run
 
+routes :
+	flask routes
+
 clean :
 	rm -rf .env
 	rm -rf venv
@@ -34,6 +37,7 @@ build :
 
 up :
 	docker compose -f $(DOCKER_COMPOSE_YML) up -d
+	echo "http://localhost:5001"
 
 stop :
 	docker compose -f $(DOCKER_COMPOSE_YML) stop
