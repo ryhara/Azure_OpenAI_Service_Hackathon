@@ -7,6 +7,8 @@ This repository is for the qualifying round of the "Azure OpenAI Service for Uni
 
 
 ## Development Environment
+- M1 MacBook Air / macOS Sonoma 14.2.1
+- Docker version 24.0.6, build ed223bc
 - Python 3.9.6
 - pip list
 ```
@@ -16,20 +18,24 @@ Package            Version
 ```
 
 ## Usage
-At project root
+1. At project root
 ```
 Start Docker(Docker Desktop)
 ```
+2. make env (cp .env.example .env)
 ```
 $ make env
 ```
+3. .env setting
 ```
 .envファイルにAPI_KEYとSECRET_KEYを設定する。
 Set API_KEY and SECRET_KEY in the .env file.
 ```
+4. make all (docker compose -f ./docker-compose.yml build --no-cache → docker compose -f ./docker-compose.yml up -d)
 ```
 $ make all
 ```
+5. access to
 ```
 http://localhost:5001
 ```
