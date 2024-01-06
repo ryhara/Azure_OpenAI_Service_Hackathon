@@ -37,7 +37,9 @@ build :
 
 up :
 	docker compose -f $(DOCKER_COMPOSE_YML) up -d
+	@echo "\n====================================="
 	@echo "access to http://localhost:5001"
+	@echo "====================================="
 
 stop :
 	docker compose -f $(DOCKER_COMPOSE_YML) stop
