@@ -6,7 +6,7 @@ app = create_app()
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('index.html')
+    return render_template('home_index.html')
 
 @app.errorhandler(404)
 def page_not_found(e):
