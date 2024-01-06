@@ -15,6 +15,8 @@ def create_app():
     # Blueprint
     from flask_app.views.manual import manual_bp
     from flask_app.views.chat import chat_bp
+    from flask_app.views.setting import setting_bp
     app.register_blueprint(manual_bp)
     app.register_blueprint(chat_bp)
+    app.register_blueprint(setting_bp)
     return app
