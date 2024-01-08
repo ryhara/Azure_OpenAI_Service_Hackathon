@@ -48,7 +48,6 @@ down :
 	docker compose -f $(DOCKER_COMPOSE_YML) down
 	docker image rm -f flask:my
 	docker volume rm -f flask
-	docker network rm -f flask-network
 
 ps :
 	docker container ls -a
