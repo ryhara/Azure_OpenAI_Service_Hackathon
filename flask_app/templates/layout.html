@@ -18,7 +18,16 @@
 	<header>
 		<nav class="navbar navbar-dark bg-dark">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="{{url_for('home')}}">Title</a>
+				<a class="navbar-brand" href="{{url_for('home')}}"><strong>Title</strong></a>
+				<div class="current-page mr-auto">
+					{% if request.path == url_for('home') %}
+							<span style="color: #fff; text-decoration: underline solid #ccc auto;">Home</span>
+					{% elif request.path == url_for('chat.chat') %}
+							<span style="color: #fff; text-decoration: underline solid #ccc auto;">Judge Fairness by Chat</span>
+					{% elif request.path == url_for('manual.manual') %}
+							<span style="color: #fff; text-decoration: underline solid #ccc auto;">Manual</span>
+					{% endif %}
+				</div>
 				<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
