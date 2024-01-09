@@ -1,8 +1,6 @@
 Flask
 Flask-SQLAlchemy
 python-dotenv
-pylint
-pycodestyle
 openai==0.28
 num2words
 matplotlib
@@ -12,3 +10,4 @@ scikit-learn
 pandas
 tiktoken
 langchain
+PyPDF2
