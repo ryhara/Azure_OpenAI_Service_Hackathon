@@ -29,4 +29,3 @@ def send_message():
              ])
     responce = completion.choices[0].message['content']
     return responce
-
