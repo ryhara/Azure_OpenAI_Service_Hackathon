@@ -19,26 +19,27 @@ Package            Version
 
 ## Usage
 1. At project root
-```
-Start Docker(Docker Desktop)
-```
-2. make env (cp .env.example .env)
+	- Dockerを起動します
+	- Start Docker(Docker Desktop)
+
+2. make env
+	- cp .env.example .env
 ```
 $ make env
 ```
 3. .env setting
-```
-.envファイルにAPI_KEYとSECRET_KEYを設定する。
-Set API_KEY and SECRET_KEY in the .env file.
-```
-4. make all (docker compose -f ./docker-compose.yml build --no-cache → docker compose -f ./docker-compose.yml up -d)
+	- .envファイルにAPI_KEYとSECRET_KEYを設定する。
+	- Set API_KEY and SECRET_KEY in the .env file.
+
+4. make all
+	- docker compose -f ./docker-compose.yml build --no-cache
+	- docker compose -f ./docker-compose.yml up -d
 ```
 $ make all
 ```
 5. access to
-```
-http://localhost:5001
-```
+	- http://localhost:5001
+
 
 ## Reference
 - [Azure OpenAI Service　大学生向けハッカソン](https://hackathon2024xseedshub.peatix.com/)
