@@ -3,3 +3,11 @@ Flask-SQLAlchemy
 python-dotenv
 pylint
 pycodestyle
+openai
+num2words
+matplotlib
+plotly
+scipy
+scikit-learn
+pandas
+tiktoken
