@@ -12,7 +12,7 @@ services:
     ports:
       - 5001:5001
     volumes:
-      - flask:/app/flask_app
+      - ./flask_app:/app/flask_app
     restart: always
     env_file:
       - ./.env
