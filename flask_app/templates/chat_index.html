@@ -41,6 +41,10 @@
 			color: #999;
 			font-size: 12px;
 	}
+	pre {
+			white-space: pre-wrap;
+			word-wrap: break-word;
+	}
 </style>
 
 <script>
@@ -80,6 +84,11 @@
 			}
 
 			inputElement.style.height = 'auto';
+			const chatBox = document.getElementById('chat-box');
+			const userMessage = document.createElement('div');
+			userMessage.classList.add('mb-1', 'user-message');
+			userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(message)}</pre>`;
+			chatBox.appendChild(userMessage);
 			fetch('/send_message', {
 					method: 'POST',
 					body: new URLSearchParams('message=' + message),
@@ -89,12 +98,6 @@
 			})
 			.then(response => response.text())
 			.then(data => {
-				const chatBox = document.getElementById('chat-box');
-				const userMessage = document.createElement('div');
-				userMessage.classList.add('mb-1', 'user-message');
-				userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(message)}</pre>`;
-				chatBox.appendChild(userMessage);
-
 				const botMessage = document.createElement('div');
 				botMessage.classList.add('mb-1', 'bot-message');
 				botMessage.innerHTML = `<p><i class="bi bi-robot"></i> <strong>Bot</strong></p><pre>${escapeHtml(data)}</pre>`;
