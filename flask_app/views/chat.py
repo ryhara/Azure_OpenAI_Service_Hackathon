@@ -37,5 +37,5 @@ def send_message():
     messages=[
         {"role": "user", "content": user_message}
              ])
-    responce = completion.choices[0].message['content']+"アデュー"
-    return responce
+    responce = completion.choices[0].message['content']
+    return "おはよう！"
