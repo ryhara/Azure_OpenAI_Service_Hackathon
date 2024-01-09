@@ -4,7 +4,7 @@ chat_bp = Blueprint('chat', __name__)
 
 @chat_bp.route('/chat')
 def chat():
-	return render_template('chat_index.html')
+    return render_template('chat_index.html')
 
 @chat_bp.route('/send_message', methods=['POST'])
 def send_message():

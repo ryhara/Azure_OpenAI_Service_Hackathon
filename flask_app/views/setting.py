@@ -5,7 +5,7 @@ setting_bp = Blueprint('setting', __name__)
 # TODO : 設定画面の実装
 @setting_bp.route('/setting')
 def setting():
-	return render_template('setting_index.html')
+    return render_template('setting_index.html')
 
 @setting_bp.route('/setting/edit', methods=['GET', 'POST'])
 def setting_edit():
