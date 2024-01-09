@@ -1,22 +1,25 @@
 DOCKER_COMPOSE_YML = ./docker-compose.yml
 
 usage :
-	@echo "Usage [common]: make env → write .env(SEACRET_KEY, API_KEY)"
-	@echo "\033[34mUsage [docker]: make build → make up → (make ps, make log, log) → make down\033[0m"
-	@echo "\033[31mUsage [venv]  : make init → . venv/bin/activate → make run → deactivate\033[0m"
+	@echo "Usage [common]: make env → write .env(SEACRET_KEY, API_KEY, ENDPOINT)"
+	@echo "\033[34mUsage [docker]: make build → make up → (make ps, make log) → make down\033[0m"
+#	@echo "\033[31mUsage [venv]  : make init → . venv/bin/activate → make run → deactivate\033[0m"
 
 env:
 	cp .env.example .env
 
-init:
-	python3 -m venv venv
-	. ./venv/bin/activate; pip install -r ./docs/requirements.txt
+# init:
+# 	python3 -m venv venv
+# 	. ./venv/bin/activate; pip install -r ./docs/requirements.txt
 
-run :
-	flask run
+# run :
+# 	flask run
+# 	@echo "\n====================================="
+# 	@echo "access to http://localhost:5001"
+# 	@echo "====================================="
 
-routes :
-	flask routes
+# routes :
+# 	flask routes
 
 clean :
 	rm -rf .env
@@ -68,6 +71,5 @@ docker-rm:
 
 bash:
 	docker exec -it flask bash
-
 
 .PHONY: usage all env init run clean pylint pycodestyle build up stop down ps docker-rm bash log
