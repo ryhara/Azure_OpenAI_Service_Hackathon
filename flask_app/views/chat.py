@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, request, current_app
-from openai import AzureOpenAI
-
+import os
+import openai
 chat_bp = Blueprint('chat', __name__)
+
 
 @chat_bp.route('/chat')
 def chat():
@@ -12,22 +13,18 @@ def send_message():
     user_message = request.form.get('message')
     AZURE_OPENAI_API_KEY = current_app.config['AZURE_OPENAI_API_KEY']
     AZURE_OPENAI_ENDPOINT = current_app.config['AZURE_OPENAI_ENDPOINT']
-    # TODO : APIを叩いて応答を生成する
-    # client = AzureOpenAI(
-    #     api_version = "2023-12-01-preview",
-    #     api_key = AZURE_OPENAI_API_KEY,
-    #     azure_endpoint = AZURE_OPENAI_ENDPOINT
-    # )
+    os.environ["OPENAI_API_KEY"] = AZURE_OPENAI_API_KEY
+    os.environ["OPENAI_ENDPOINT"] = AZURE_OPENAI_ENDPOINT
+    
+    openai.api_key = os.environ.get('OPENAI_API_KEY')
+    openai.api_type = "azure"
+    openai.api_base = os.environ.get('OPENAI_ENDPOINT')
+    openai.api_version = "2023-05-15"
 
-    # completion = client.chat.completions.create(
-    #     model="GPT35TURBO16K",
-    #     messages=[
-    #         {
-    #             "role": "user",
-    #             "content": user_message,
-    #         },
-    #     ],
-    # )
-    # response_message = completion.choices[0].message.content
-    response_message = "Hello World!"
-    return response_message
+    completion = openai.ChatCompletion.create(
+    deployment_id="GPT35TURBO",
+    messages=[
+        {"role": "user", "content": user_message}
+             ])
+    responce = completion.choices[0].message['content']
+    return responce
