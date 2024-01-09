@@ -8,9 +8,20 @@
 	</div>
 	<div class="chat-form-container fixed-bottom text-center">
 		<form id="chat-form" class="input-group w-50 mx-auto mb-4">
-				<textarea id="chat-input" class="form-control" placeholder="Type a message..." rows="1"></textarea>
-				<button type="submit" class="btn btn-dark"><i class="bi bi-send-fill"></i></button>
-		</form>
+			<div class="input-group-append">
+				<label class="input-group-text" for="pdf-input">
+					<i class="bi bi-filetype-pdf"></i>
+				</label>
+				<input type="file" id="pdf-input" accept="application/pdf" class="form-control" style="display: none;">
+			</div>
+			<textarea id="chat-input" class="form-control" placeholder="Type a message..." rows="1"></textarea>
+			<div class="input-group-append">
+					<button type="submit" class="btn btn-dark">
+							<i class="bi bi-send-fill"></i>
+					</button>
+			</div>
+	</form>
+
 		<div class="chat-instructions text-center w-50 mx-auto mb-1">
 				Shift + Enter or Click button to send a message
 		</div>
@@ -74,41 +85,47 @@
     return div.innerHTML;
 }
 	document.getElementById('chat-form').addEventListener('submit', function(e) {
-			e.preventDefault();
-			const inputElement = document.getElementById('chat-input');
-			const message = inputElement.value.trim();
-			inputElement.value = '';
-			if (message === '') {
-				inputElement.style.height = 'auto';
-				return;
-			}
+		e.preventDefault();
+		const inputElement = document.getElementById('chat-input');
+    const message = inputElement.value.trim();
+    const pdfInput = document.getElementById('pdf-input');
+    const pdfFile = pdfInput ? pdfInput.files[0] : null;
+		inputElement.value = '';
+		pdfInput.value = '';
+    if (message === '' && !pdfFile) {
+        alert('Please enter a message or select a PDF file.');
+        return;
+    }
 
-			inputElement.style.height = 'auto';
-			const chatBox = document.getElementById('chat-box');
-			const userMessage = document.createElement('div');
-			userMessage.classList.add('mb-1', 'user-message');
-			userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(message)}</pre>`;
-			chatBox.appendChild(userMessage);
-			fetch('/send_message', {
-					method: 'POST',
-					body: new URLSearchParams('message=' + message),
-					headers: {
-							'Content-Type': 'application/x-www-form-urlencoded',
-					},
-			})
-			.then(response => response.text())
-			.then(data => {
-				const botMessage = document.createElement('div');
-				botMessage.classList.add('mb-1', 'bot-message');
-				botMessage.innerHTML = `<p><i class="bi bi-robot"></i> <strong>Bot</strong></p><pre>${escapeHtml(data)}</pre>`;
-				chatBox.appendChild(botMessage);
+    const formData = new FormData();
+    if (message !== '')
+				formData.append('message', message);
+    if (pdfFile)
+        formData.append('pdf', pdfFile);
 
-				chatBox.appendChild(document.createElement('hr'));
-				chatBox.scrollTop = chatBox.scrollHeight;
+		inputElement.style.height = 'auto';
+		const chatBox = document.getElementById('chat-box');
+		const userMessage = document.createElement('div');
+		userMessage.classList.add('mb-1', 'user-message');
+		userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(message)}</pre>`;
+		chatBox.appendChild(userMessage);
+    fetch('/send_message', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+		.then(data => {
+			const botMessage = document.createElement('div');
+			botMessage.classList.add('mb-1', 'bot-message');
+			botMessage.innerHTML = `<p><i class="bi bi-robot"></i> <strong>Bot</strong></p><pre>${escapeHtml(data)}</pre>`;
+			chatBox.appendChild(botMessage);
 
-			}, (error) => {
-				console.log(error);
-			});
+			chatBox.appendChild(document.createElement('hr'));
+			chatBox.scrollTop = chatBox.scrollHeight;
+
+		}, (error) => {
+			console.log(error);
+		});
 	});
 </script>
 
