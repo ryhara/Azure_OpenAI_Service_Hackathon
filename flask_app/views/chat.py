@@ -11,7 +11,6 @@ def chat():
 @chat_bp.route('/send_message', methods=['POST'])
 def send_message():
     user_message = request.form.get('message')
-    # TODO : APIを叩いて応答を生成する
     AZURE_OPENAI_API_KEY = current_app.config['AZURE_OPENAI_API_KEY']
     AZURE_OPENAI_ENDPOINT = current_app.config['AZURE_OPENAI_ENDPOINT']
     os.environ["OPENAI_API_KEY"] = AZURE_OPENAI_API_KEY
