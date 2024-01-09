@@ -17,14 +17,14 @@ def send_message():
     os.environ["OPENAI_ENDPOINT"] = AZURE_OPENAI_ENDPOINT
     
     openai.api_key = os.environ.get('OPENAI_API_KEY')
-    openai.api_type = "azure"
-    openai.api_base = os.environ.get('OPENAI_ENDPOINT')
-    openai.api_version = "2023-05-15"
+    #openai.api_type = "azure"
+    #openai.api_base = os.environ.get('OPENAI_ENDPOINT')
+    #openai.api_version = "2023-05-15"
 
     completion = openai.ChatCompletion.create(
-    deployment_id="GPT35TURBO",
+    model='gpt-3.5-turbo',
     messages=[
         {"role": "user", "content": user_message}
              ])
-    responce = completion.choices[0].message['content']
+    responce = completion.choices[0].message['content']+"アデュー"
     return responce
