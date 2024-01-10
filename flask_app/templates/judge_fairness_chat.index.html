@@ -20,8 +20,7 @@
 							<i class="bi bi-send-fill"></i>
 					</button>
 			</div>
-	</form>
-
+		</form>
 		<div class="chat-instructions text-center w-50 mx-auto mb-1">
 				Shift + Enter or Click button to send a message
 		</div>
@@ -109,7 +108,7 @@
 		userMessage.classList.add('mb-1', 'user-message');
 		userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(message)}</pre>`;
 		chatBox.appendChild(userMessage);
-    fetch('/send_message', {
+    fetch('/judge_fairness_chat/send_message', {
         method: 'POST',
         body: formData
     })
