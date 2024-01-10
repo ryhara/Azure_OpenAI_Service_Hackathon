@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, current_app
 import os
 import openai
-from PyPDF2 import PdfReader
+from pypdf import PdfReader
 chat_bp = Blueprint('chat', __name__)
 
 
@@ -12,7 +12,6 @@ def chat():
 @chat_bp.route('/send_message', methods=['POST'])
 def send_message():
     # user_message かpdf_fileどちらかは必須で入る。
-    # pdf_fileは最終的にtextに変換される。
     # user_messageがない場合はpdf_fileが入っているので、デフォルトのメッセージを入れる。
     user_message = request.form.get('message')
     if user_message is None:
@@ -22,6 +21,7 @@ def send_message():
     text = ''
     if pdf_file and pdf_file.filename.endswith('.pdf'):
         reader = PdfReader(pdf_file)
+        # textにpdfから読み込んだtext情報が入っている。
         text = reader.pages[0].extract_text()
     AZURE_OPENAI_API_KEY = current_app.config['AZURE_OPENAI_API_KEY']
     AZURE_OPENAI_ENDPOINT = current_app.config['AZURE_OPENAI_ENDPOINT']
