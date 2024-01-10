@@ -14,6 +14,7 @@ def chat():
 def send_message():
     # user_message かpdf_fileどちらかは必須で入る。
     # pdfがない場合user_messageをtextとして使う
+    # TODO : pdfとuser_messageの両方がある場合はuser_messageをoptionの指示として使う
     user_message = request.form.get('message')
     pdf_file = request.files.get('pdf')
     text = ''
