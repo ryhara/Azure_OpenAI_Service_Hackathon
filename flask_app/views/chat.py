@@ -31,11 +31,16 @@ def send_message():
     #openai.api_type = "azure"
     #openai.api_base = os.environ.get('OPENAI_ENDPOINT')
     #openai.api_version = "2023-05-15"
-
+    ###promptの設定
+    prompt_path = 'flask_app/data/fair_prompt.txt'
+    prompt = ""
+    with open(prompt_path) as f:
+        prompt = str(f.read()) ##一応キャスト
+    prompt = prompt.format(input=text)
     completion = openai.ChatCompletion.create(
     model='gpt-3.5-turbo',
     messages=[
-        {"role": "user", "content": user_message}
+        {"role": "user", "content": prompt}
              ])
     responce = completion.choices[0].message['content']
     return responce
