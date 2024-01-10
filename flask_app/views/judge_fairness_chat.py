@@ -2,14 +2,15 @@ from flask import Blueprint, render_template, redirect, url_for, request, curren
 import os
 import openai
 from pypdf import PdfReader
-chat_bp = Blueprint('chat', __name__)
+
+judge_fairness_chat_bp = Blueprint('judge_fairness_chat', __name__)
 
 
-@chat_bp.route('/chat')
+@judge_fairness_chat_bp.route('/judge_fairness_chat')
 def chat():
-    return render_template('chat_index.html')
+    return render_template('judge_fairness_chat.index.html')
 
-@chat_bp.route('/send_message', methods=['POST'])
+@judge_fairness_chat_bp.route('/send_message', methods=['POST'])
 def send_message():
     # user_message かpdf_fileどちらかは必須で入る。
     # user_messageがない場合はpdf_fileが入っているので、デフォルトのメッセージを入れる。
