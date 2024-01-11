@@ -10,9 +10,6 @@ scikit-learn
 pandas
 tiktoken
 langchain
-<<<<<<< HEAD
 PyPDF2ls
 PyMuPDF
-=======
 pypdf
->>>>>>> 84584f3fa114d2379c84253180cd0a52ec1a84bf
