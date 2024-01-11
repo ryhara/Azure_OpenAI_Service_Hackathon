@@ -13,8 +13,6 @@ def create_app():
     app.config.from_pyfile('config.py')
     # TODO : GCS使用したら必要なさそう
     app.config['UPLOAD_FOLDER'] = '/app/flask_app/uploads/'
-    # TODO : config.pyで読み込めてるはず
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/sampleDB.db'
 
     # Database
     db.init_app(app)
