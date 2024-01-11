@@ -11,14 +11,8 @@ def create_app():
     app = Flask(__name__, instance_relative_config=True,
                 static_folder='./static', template_folder='./templates')
     app.config.from_pyfile('config.py')
-<<<<<<< HEAD
+    # TODO : GCS使用したら必要なさそう
     app.config['UPLOAD_FOLDER'] = '/app/flask_app/uploads/'
-    
-
-=======
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/pdfs.db'
-    app.config['UPLOAD_FOLDER'] = '/app/flask_app/uploads/'
->>>>>>> d2f0e814470fd6853af5101418ae402a6da35d90
 
     # Database
     db.init_app(app)
@@ -27,4 +21,4 @@ def create_app():
     app.register_blueprint(manual_bp)
     app.register_blueprint(judge_fairness_chat_bp)
     app.register_blueprint(image_chat_bp)
-
+    return app
