@@ -2,27 +2,26 @@ from flask import Blueprint, render_template, redirect, url_for, request, curren
 import os
 import openai
 from pypdf import PdfReader
-chat_bp = Blueprint('chat', __name__)
+
+judge_fairness_chat_bp = Blueprint('judge_fairness_chat', __name__)
 
 
-@chat_bp.route('/chat')
+@judge_fairness_chat_bp.route('/judge_fairness_chat')
 def chat():
-    return render_template('chat_index.html')
+    return render_template('judge_fairness_chat.index.html')
 
-@chat_bp.route('/send_message', methods=['POST'])
+@judge_fairness_chat_bp.route('/judge_fairness_chat/send_message', methods=['POST'])
 def send_message():
     # user_message かpdf_fileどちらかは必須で入る。
-    # user_messageがない場合はpdf_fileが入っているので、デフォルトのメッセージを入れる。
+    # pdfがない場合user_messageをtextとして使う, ２つ入力がある場合はpdfを優先する
     user_message = request.form.get('message')
-    if user_message is None:
-        # TODO : デフォルトのメッセージはいいものを考える（英語）。
-        user_message = 'この文章について、解説してください'
     pdf_file = request.files.get('pdf')
     text = ''
     if pdf_file and pdf_file.filename.endswith('.pdf'):
         reader = PdfReader(pdf_file)
-        # textにpdfから読み込んだtext情報が入っている。
         text = reader.pages[0].extract_text()
+    else:
+        text = user_message
     AZURE_OPENAI_API_KEY = current_app.config['AZURE_OPENAI_API_KEY']
     AZURE_OPENAI_ENDPOINT = current_app.config['AZURE_OPENAI_ENDPOINT']
     os.environ["OPENAI_API_KEY"] = AZURE_OPENAI_API_KEY
