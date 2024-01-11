@@ -3,7 +3,6 @@ import os
 
 image_chat_bp = Blueprint('image_chat', __name__)
 
-# TODO : 設定画面の実装
 @image_chat_bp.route('/image_chat')
 def chat():
     return render_template('image_chat.index.html')
@@ -18,9 +17,9 @@ def upload_image():
     if file.filename == '':
         return redirect(request.url)
 
-    if file:  # ファイルの存在を確認
+    if file:
         file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], file.filename)
-        file.save(file_path)  # ファイルを保存
+        file.save(file_path)
         return redirect(url_for('image_chat.chat'))
 
     return redirect(url_for('image_chat.chat'))
