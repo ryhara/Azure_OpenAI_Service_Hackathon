@@ -12,6 +12,8 @@ def create_app():
                 static_folder='./static', template_folder='./templates')
     app.config.from_pyfile('config.py')
     app.config['UPLOAD_FOLDER'] = '/app/flask_app/uploads/'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/sampleDB.db'
+    
 
 
     # Database
