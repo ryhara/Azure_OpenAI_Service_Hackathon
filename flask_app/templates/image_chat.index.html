@@ -118,8 +118,10 @@
 		const inputElement = document.getElementById('chat-input');
     const message = inputElement.value.trim();
 		inputElement.value = '';
-    if (message === '')
-				return;
+    if (message === '') {
+			inputElement.style.height = 'auto';
+			return;
+		}
 
     const formData = new FormData();
     if (message !== '')
