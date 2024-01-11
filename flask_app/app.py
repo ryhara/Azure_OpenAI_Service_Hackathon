@@ -30,5 +30,4 @@ def upload_file():
     return 'No file uploaded'
 
 if __name__ == '__main__':
-    db.create_all()
     app.run()
