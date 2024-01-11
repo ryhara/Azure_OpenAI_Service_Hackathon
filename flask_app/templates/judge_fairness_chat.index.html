@@ -55,6 +55,10 @@
 			white-space: pre-wrap;
 			word-wrap: break-word;
 	}
+	.image-size {
+		width: 1.5em;
+		height: 1.5em;
+	}
 </style>
 
 <script>
@@ -116,7 +120,7 @@
 		.then(data => {
 			const botMessage = document.createElement('div');
 			botMessage.classList.add('mb-1', 'bot-message');
-			botMessage.innerHTML = `<p><i class="bi bi-robot"></i> <strong>Bot</strong></p><pre>${escapeHtml(data)}</pre>`;
+			botMessage.innerHTML = `<p><img src="{{ url_for('static', filename='images/penguin.png') }}" alt="Bot" class="image-size" <strong>Bot</strong></p><pre>${escapeHtml(data)}</pre>`;
 			chatBox.appendChild(botMessage);
 
 			chatBox.appendChild(document.createElement('hr'));
