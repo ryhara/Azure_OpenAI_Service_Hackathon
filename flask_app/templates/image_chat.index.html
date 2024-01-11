@@ -63,8 +63,10 @@
 	document.getElementById('image-upload-button').addEventListener('click', function(e) {
 		e.preventDefault();
     const imageInput = document.getElementById('image-input');
-		if (imageInput.files.length === 0)
+		if (imageInput.files.length === 0) {
+			alert("Please select an image file.");
 			return;
+		}
 		const formData = new FormData();
 		formData.append('image-input', imageInput.files[0]);
 		fetch('/upload_image', {

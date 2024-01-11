@@ -33,6 +33,7 @@ $ make env
 
 4. make all
 	- docker compose -f ./docker-compose.yml build --no-cache
+	- mkdir -p ./flask_app/uploads
 	- docker compose -f ./docker-compose.yml up -d
 ```
 $ make all
