@@ -22,15 +22,13 @@ def send_message():
         text = reader.pages[0].extract_text()
     else:
         text = user_message
-    AZURE_OPENAI_API_KEY = current_app.config['AZURE_OPENAI_API_KEY']
-    AZURE_OPENAI_ENDPOINT = current_app.config['AZURE_OPENAI_ENDPOINT']
-    os.environ["OPENAI_API_KEY"] = AZURE_OPENAI_API_KEY
-    os.environ["OPENAI_ENDPOINT"] = AZURE_OPENAI_ENDPOINT
-    openai.api_key = os.environ.get('OPENAI_API_KEY')
+
+    openai.api_key = current_app.config['OPENAI_API_KEY']
     #openai.api_type = "azure"
-    #openai.api_base = os.environ.get('OPENAI_ENDPOINT')
+    #openai.api_base = current_app.config['OPENAI_ENDPOINT']
     #openai.api_version = "2023-05-15"
     ###promptの設定
+    ## TODO : 英語のpromptのほうが提出時には良いかも
     prompt_path = 'flask_app/data/fair_prompt.txt'
     prompt = ""
     with open(prompt_path) as f:
