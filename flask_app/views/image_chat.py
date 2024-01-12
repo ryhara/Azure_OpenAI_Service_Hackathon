@@ -6,6 +6,7 @@ from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 image_chat_bp = Blueprint('image_chat', __name__)
+
 ###データベースの構造の定義
 Base = declarative_base()
 class Image(Base):
@@ -14,6 +15,7 @@ class Image(Base):
     id = Column(Integer, primary_key=True)
     file_name = Column(String)
     label = Column(String)
+
 ###ここに定義していいのかわからないけどlabelを取得する関数
 #TODO しゅうたんの担当関数。
 def get_label():

@@ -12,7 +12,7 @@ def chat():
 
 @judge_fairness_chat_bp.route('/judge_fairness_chat/send_message', methods=['POST'])
 def send_message():
-    # user_message かpdf_fileどちらかは必須で入る。
+    # user_messageかpdf_fileどちらかは必須で入る。
     # pdfがない場合user_messageをtextとして使う, ２つ入力がある場合はpdfを優先する
     user_message = request.form.get('message')
     pdf_file = request.files.get('pdf')
