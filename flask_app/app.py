@@ -1,7 +1,6 @@
 from flask import render_template
 from flask_app import create_app
 from flask_app import db
-from models import PDFStorage
 from flask import request
 
 app = create_app()
