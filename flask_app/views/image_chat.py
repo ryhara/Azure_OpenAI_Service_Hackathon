@@ -4,12 +4,12 @@ import sqlite3
 from sqlalchemy import create_engine,Column,Integer,String
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
-
 import requests
 import matplotlib.pyplot as plt
 import json
 from PIL import Image
 from io import BytesIO
+import openai
 
 image_chat_bp = Blueprint('image_chat', __name__)
 
@@ -26,7 +26,7 @@ def get_label(image_file):
     vision_base_url = "https://japaneast.api.cognitive.microsoft.com/vision/v2.0/"
     analyze_url = vision_base_url + "analyze"
     # リクエストのヘッダーとパラメータ(local)
-    subscription_key = current_app.config['OPENAI_API_KEY']
+    subscription_key = current_app.config['AZURE_IMAGE_CAPTIONING_API_KEY']
     headers = {'Ocp-Apim-Subscription-Key': subscription_key, 'Content-Type': 'application/octet-stream'}
     params = {'visualFeatures': 'Categories,Description,Color'}
     with io.BytesIO(image_file) as image_data:
@@ -45,7 +45,7 @@ def get_word_list(user_message):
 
     with open(prompt_path) as f:
         prompt = str(f.read())
-    
+
     #日本語
     #with open(prompt_path, 'r', encoding='utf-8') as f:
         #prompt = str(f.read())
@@ -74,7 +74,7 @@ def upload_image():
 
     if file.filename == '':
         return redirect(request.url)
-    
+
     if file:
         ###sqliteデータベースにファイル名と対応するラベルを保存する。
         db_path = current_app.config['SQLALCHEMY_DATABASE_URI']
