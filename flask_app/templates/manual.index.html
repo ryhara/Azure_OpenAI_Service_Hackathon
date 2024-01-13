@@ -5,34 +5,72 @@
 <!-- TODO : 適宜マニュアルを記述 -->
 <div class="container mt-5">
 	<div class="mb-5">
-    <h1 class="text-center">User's Manual <i class="bi bi-book"></i></h1>
+    <h1 class="text-center"><i class="bi bi-book"></i> User's Manual</h1>
     <p class="text-center">This page will help you understand how to use and the features of our chat application.</p>
 	</div>
 
 	<div>
 		<hr>
     <section id="judge-fairness" class="mt-2">
-        <h2 class="text-center">Judge Fairness by Chat</h2><br>
+        <h2 class="text-center"><i class="bi bi-chat-dots"></i> Judge Fairness by Chat</h2><br>
         <h4>Features</h4>
         <p>
-            how to use judge fairness by chat and features
+            <ul>
+                <li>This chat can judge the fairness and error of the uploaded PDF or text.</li>
+                <li>As a result of the judgment, it will output <b>"This manuscript does not contain any bias"</b> or <b>"This manuscript contains incorrect information or bias. Please correct it."</b></li>
+                <li>If errors are included, <b>"Discrimination/Prejudice"</b> or <b>"Error"</b> will be returned along with the corresponding sentence.</li>
+                <li>This chat will not respond to other sentences.</li>
+                <li>Users can use these responses as a reference to reconsider their manuscript.</li>
+            </ul>
         </p>
         <h4>How to Use</h4>
         <p>
-            how to use judge fairness by chat and features
+            <ol>
+                <li>Enter the manuscript you want checked in the PDF or text box.</li>
+                <li>Please Click Send Button or Shift + Enter</li>
+                <li>Wait for the response.</li>
+                <li>Check the response. The user views the response and reconsiders the manuscript.</li>
+                <li>Repeat the above steps until the user is satisfied with the manuscript.</li>
+            </ol>
         </p>
+        <h5><i class="bi bi-exclamation-octagon"></i> Caution</h5>
+        <p>This chat may not be able to completely eliminate mistakes and AI bias, but it will make you realize things that you would not notice on your own.</p>
     </section>
 		<hr>
     <section id="features" class="mt-2">
-        <h2 class="text-center">Image Search</h2><br>
+        <h2 class="text-center"><i class="bi bi-image"></i> Image Search</h2><br>
         <h4>Features</h4>
         <p>
-            how to use image search and features
+            <ul>
+                <li><b>Image Search</b> labels uploaded images and stores them in cloud storage.</li>
+                <li>It takes input as text and outputs an image with a label that is highly relevant to the input.</li>
+                <li>This feature supports selecting images when creating slides</li>
+                <li>By registering images that are likely to be used for slide creation in advance, it will be easier to find them when you want to use them.</li>
+
+            </ul>
         </p>
         <h4>How to Use</h4>
         <p>
-            how to use image search and features
+            Input
+            <ol>
+                <li>Select image in the input box on the left</li>
+                <li>Press the upload button to save the image to cloud storage</li>
+                <li>At this time, the image name and label are also saved in the database.</li>
+                <li>Follow the steps above to register multiple images.</li>
+            </ol>
         </p>
+        <p>
+            Search
+            <ol>
+                <li>Enter a sentence or a list of words in the input box on the right. </li>
+                <li>Then, an image related to the entered sentence or word will be output.</li>
+
+            </ol>
+        </p>
+        <h5><i class="bi bi-exclamation-octagon"></i> Caution</h5>
+        <p>Only registered images can be used. Relevance is determined by labeling images. If the labels are incorrect, the correct results may not be returned.</p>
+        <p>There is a limit to the number of images that can be registered. Please do not exceed 10</p>
+        <p>Functions such as image deletion and list will be implemented in the future.</p>
     </section>
 		<hr>
 	</div>

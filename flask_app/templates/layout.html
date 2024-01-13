@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- responsive -->
-	<title>Icy Slide Creator</title>
+	<title>Icy Slide Assistant</title>
 	<!-- reset css -->
 	<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
 	<!-- custom css -->
@@ -14,13 +14,17 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 	<!-- icon -->
 	<link rel="icon" href="{{ url_for('static', filename='images/penguin.png') }}">
+	<!-- google font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap" rel="stylesheet">
 </head>
 <body>
 	<!-- header -->
 	<header>
 		<nav class="navbar navbar-dark bg-dark">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="{{url_for('home')}}"><strong>Icy Slide Creator</strong></a>
+				<a class="navbar-brand fredoka-600" href="{{url_for('home')}}">Icy Slide Assistant </a>
 				<div class="current-page mr-auto">
 					{% if request.path == url_for('home') %}
 							<span style="color: #fff; text-decoration: underline solid #ccc auto;">Home</span>
