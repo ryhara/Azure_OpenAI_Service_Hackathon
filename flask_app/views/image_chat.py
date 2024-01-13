@@ -10,6 +10,8 @@ import json
 from PIL import Image
 from io import BytesIO
 import openai
+from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
+import io
 
 image_chat_bp = Blueprint('image_chat', __name__)
 
@@ -89,6 +91,48 @@ def upload_image():
 
     return redirect(url_for('image_chat.chat'))
 @image_chat_bp.route('/image_chat/send_message', methods=['POST'])
+def upload(image, filename):
+    connect_str = "DefaultEndpointsProtocol=https;AccountName=shutanstorage;AccountKey=NQ1xYWAi++YnmkgQ3DLgilKr1kX07twiOXtgHtasFvStqA3esbUr0JRExf15vyhpNH5JdwLViRqt+ASt2PeHCA==;EndpointSuffix=core.windows.net"
+
+    # Blobサービスクライアントを作成
+    blob_service_client = BlobServiceClient.from_connection_string(connect_str)
+
+    # アップロードするコンテナを指定（存在しない場合は新規作成）
+    container_name = "Penguins"
+    container_client = blob_service_client.get_container_client(container_name)
+    if not container_client.exists():
+        container_client.create_container()
+
+    # Blobクライアントを作成する 
+    # filenameは同一コンテナ内で一意である必要がある（存在する場合は上書きする）
+    blob_client = blob_service_client.get_blob_client(container=container_name, blob=filename)
+
+    # ファイルをアップロード（overwriteオプションを指定しない場合は重複時エラーになる）
+    blob_client.upload_blob(image, overwrite=True)
+
+
+
+def download(filename):
+# filenameと一致するBlobクライアントが保持している画像データをPILイメージで返す関数
+    connect_str = "DefaultEndpointsProtocol=https;AccountName=shutanstorage;AccountKey=NQ1xYWAi++YnmkgQ3DLgilKr1kX07twiOXtgHtasFvStqA3esbUr0JRExf15vyhpNH5JdwLViRqt+ASt2PeHCA==;EndpointSuffix=core.windows.net"
+    blob_service_client = BlobServiceClient.from_connection_string(connect_str)
+    container_name = "Penguins"
+    container_client = blob_service_client.get_container_client(container_name)
+    if not container_client.exists():
+        container_client.create_container()
+
+    # filenameと一致するBlobクライアントが保持している画像データをPILイメージで返す関数
+    # Blobクライアントを作成する
+    blob_client = blob_service_client.get_blob_client(container=container_name, blob=filename)
+
+    # Blobの内容をダウンロード
+    blob_data = blob_client.download_blob().readall()
+
+    #バイトデータをPILイメージに変換する
+    image = Image.open(io.BytesIO(blob_data))
+
+    return image
+
 def send_message():
     ###ひとまずデータベースから与えられた単語に一致するデータを拾ってくる。
     ###user_messageは本来単語じゃないのでGPTを使って単語のリストに処理する必要がある。
