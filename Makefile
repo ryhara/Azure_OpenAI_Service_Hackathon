@@ -1,7 +1,7 @@
 DOCKER_COMPOSE_YML = ./docker-compose.yml
 
 usage :
-	@echo "Usage [common]: make env → write .env(SEACRET_KEY, AZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT)"
+	@echo "Usage [common]: make env → write .env(SEACRET_KEY, OPENAI_API_KEY, OPENAI_ENDPOINT, )"
 	@echo "\033[34mUsage [docker]: make build → make up → (make ps, make log) → make down\033[0m"
 #	@echo "\033[31mUsage [venv]  : make init → . venv/bin/activate → make run → deactivate\033[0m"
 
