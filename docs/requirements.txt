@@ -10,6 +10,4 @@ scikit-learn
 pandas
 tiktoken
 langchain
-PyPDF2ls
-PyMuPDF
 pypdf

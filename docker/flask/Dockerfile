@@ -1,5 +1,8 @@
 FROM python:3.9.6
 
+RUN apt-get update && \
+	apt-get install -y sqlite3
+
 RUN mkdir -p /app && \
 	mkdir -p /app/instance
 COPY ./docs/requirements.txt /app/requirements.txt

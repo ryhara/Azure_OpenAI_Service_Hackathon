@@ -13,6 +13,7 @@ services:
       - 5001:5001
     volumes:
       - ./flask_app:/app/flask_app
+      - ./instance:/app/instance
     restart: always
     env_file:
       - ./.env
