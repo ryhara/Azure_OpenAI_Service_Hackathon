@@ -4,7 +4,13 @@ import sqlite3
 from sqlalchemy import create_engine,Column,Integer,String
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
-import openai
+
+import requests
+import matplotlib.pyplot as plt
+import json
+from PIL import Image
+from io import BytesIO
+
 image_chat_bp = Blueprint('image_chat', __name__)
 
 ###データベースの構造の定義
@@ -16,11 +22,21 @@ class Image(Base):
     file_name = Column(String)
     label = Column(String)
 
-###ここに定義していいのかわからないけどlabelを取得する関数
-#TODO しゅうたんの担当関数。
-def get_label():
-    return "cat"
-###メッセージを
+def get_label(image_file):
+    vision_base_url = "https://japaneast.api.cognitive.microsoft.com/vision/v2.0/"
+    analyze_url = vision_base_url + "analyze"
+    # リクエストのヘッダーとパラメータ(local)
+    subscription_key = current_app.config['OPENAI_API_KEY']
+    headers = {'Ocp-Apim-Subscription-Key': subscription_key, 'Content-Type': 'application/octet-stream'}
+    params = {'visualFeatures': 'Categories,Description,Color'}
+    with io.BytesIO(image_file) as image_data:
+        response = requests.post(analyze_url, headers=headers, params=params, data=image_data)
+        response.raise_for_status()
+    analysis = response.json()
+    #responseから説明を取り出す
+    image_caption = analysis["description"]["captions"][0]["text"].capitalize()
+    return image_caption
+
 def get_word_list(user_message):
     text = user_message
     openai.api_key = current_app.config['OPENAI_API_KEY']
@@ -43,6 +59,7 @@ def get_word_list(user_message):
     responce = completion.choices[0].message['content']
     word_list = responce.split(",")
     return word_list
+
 
 @image_chat_bp.route('/image_chat')
 def chat():
