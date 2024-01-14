@@ -25,6 +25,9 @@ def get_label(image_file):
 def get_word_list(user_message):
     text = user_message
     openai.api_key = current_app.config['OPENAI_API_KEY']
+    openai.api_type = "azure"
+    openai.api_base = current_app.config['OPENAI_ENDPOINT']
+    openai.api_version = "2023-05-15"
     prompt_path = 'flask_app/data/word_list_prompt.txt'
     prompt = ""
 
@@ -37,7 +40,7 @@ def get_word_list(user_message):
 
     prompt = prompt.format(input=text)
     completion = openai.ChatCompletion.create(
-    model='gpt-3.5-turbo',
+    deployment_id='GPT35TURBO',
     messages=[
         {"role": "user", "content": prompt}
              ])

@@ -34,7 +34,7 @@ def send_message():
     with open(prompt_path) as f:
         prompt = str(f.read()) ##一応キャスト
     prompt = prompt.format(input=text)
-    completion = openai.Completion.create(
+    completion = openai.ChatCompletion.create(
     deployment_id='GPT35TURBO',
     messages=[
         {"role": "user", "content": prompt}
