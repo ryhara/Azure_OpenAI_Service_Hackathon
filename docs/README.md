@@ -28,8 +28,8 @@ Package            Version
 $ make env
 ```
 3. .env setting
-	- .envファイルにAZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINTとSECRET_KEYを設定する。
-	- Set AZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT and SECRET_KEY in the .env file.
+	- .envファイルにOPENAI_API_KEY, OPENAI_ENDPOINT, AZURE_IMAGE_CAPTIONING_API_KEYとSECRET_KEYを設定する。
+	- Set OPENAI_API_KEY, OPENAI_ENDPOINT, AZURE_IMAGE_CAPTIONING_API_KEY and SECRET_KEY in the .env file.
 
 4. make all
 	- docker compose -f ./docker-compose.yml build --no-cache

@@ -1,26 +1,10 @@
 from flask import Blueprint, render_template, redirect, url_for, request, current_app
-import os
-import sqlite3
-from sqlalchemy import create_engine,Column,Integer,String
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import sessionmaker
-import requests
-import matplotlib.pyplot as plt
-import json
-from PIL import Image
-from io import BytesIO
+import io
 import openai
+import requests
+from flask_app.models import Image
 
 image_chat_bp = Blueprint('image_chat', __name__)
-
-###データベースの構造の定義
-Base = declarative_base()
-class Image(Base):
-    __tablename__ = 'images'
-
-    id = Column(Integer, primary_key=True)
-    file_name = Column(String)
-    label = Column(String)
 
 def get_label(image_file):
     vision_base_url = "https://japaneast.api.cognitive.microsoft.com/vision/v2.0/"
@@ -69,41 +53,24 @@ def chat():
 def upload_image():
     if 'image-input' not in request.files:
         return redirect(request.url)
-
     file = request.files['image-input']
 
-    if file.filename == '':
-        return redirect(request.url)
-
-    if file:
-        ###sqliteデータベースにファイル名と対応するラベルを保存する。
-        db_path = current_app.config['SQLALCHEMY_DATABASE_URI']
-        engine = create_engine(db_path)
-        Base.metadata.create_all(engine)
-        Session = sessionmaker(bind=engine)
-        session = Session()
-        new_image = Image(file_name=file.filename,label=get_label())
-        session.add(new_image)
-        session.commit()
+    if file and file.filename != '':
+        new_image = Image(file_name=file.filename, label=get_label(file.read()))
+        new_image.register()
         return redirect(url_for('image_chat.chat'))
+    return redirect(request.url)
 
-    return redirect(url_for('image_chat.chat'))
 @image_chat_bp.route('/image_chat/send_message', methods=['POST'])
 def send_message():
     ###ひとまずデータベースから与えられた単語に一致するデータを拾ってくる。
     ###user_messageは本来単語じゃないのでGPTを使って単語のリストに処理する必要がある。
     user_message = request.form.get('message')
     word_list = get_word_list(user_message)
-    db_path = current_app.config['SQLALCHEMY_DATABASE_URI']
-    engine = create_engine(db_path)
-    Base.metadata.create_all(engine)
-    Session = sessionmaker(bind=engine)
-    session = Session()
     #取り出してみる
     result = ""
     for word in word_list:
-        query = session.query(Image).filter(Image.label.like(f"%{word}%"))
-        images = query.all()
+        images = Image.get_all_images_by_label(label_name=word)
         #とりあえず三件だけ取り出してみる[:num]を調整することで数変えられる。
         for image in images[:3]:
             result+=(str(image.file_name) + '\n')
