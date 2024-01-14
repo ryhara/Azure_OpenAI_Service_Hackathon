@@ -2,47 +2,65 @@
 
 {% block body %}
 
-<div class="container mt-5">
-    <h1 class="text-center">Welcome to <i class="text-info">"Icy Slide Creator"</i></h1>
-    <p class="text-center">This is a chat application that supports slide creation.</p>
-
-        <!-- TODO : このページ内の説明を具体的にする, 画像を用意する -->
-    <div class="text-center mt-4 mb-4 justify-content-center">
-        <img src="{{ url_for('static', filename='images/chatbot.png') }}" alt="Chatbot Image" class="img-fluid" style="max-width: 300px;">
-        <!-- <p class="mt-3">Experience a new way of communication with our advanced chatbot technology.</p> -->
-    </div>
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-        <div class="col-md-4">
-          <div class="card h-100">
-            <div class="card-body text-center">
-                <h5 class="card-title">Judge Fairness by Chat</h5>
-                <p class="card-text">short explanation ......</p>
-                <a href="{{ url_for('judge_fairness_chat.chat') }}" class="btn btn-primary">Chat <i class="bi bi-chat"></i></a>
-              </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card h-100">
-            <div class="card-body text-center">
-                <h5 class="card-title">Image Search</h5>
-                <p class="card-text"> short explanation ......</p>
-                <a href="{{ url_for('image_chat.chat') }}" class="btn btn-primary">Search <i class="bi bi-search"></i></a>
-              </div>
-
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card h-100">
-            <div class="card-body text-center">
-                <h5 class="card-title">User's Manual</h5>
-                <p class="card-text">Learn how to use our chat application.</p>
-                <a href="{{ url_for('manual.manual') }}" class="btn btn-secondary">Learn More</a>
-              </div>
-          </div>
-        </div>
-
+<div class="background-image">
+  <div class="my-cover">
+    <div class="container p-2">
+      <div class="my-5" >
+        <h1 class="rubik-doodle text-center mt-2">Welcome to <strong>"Icy Slide Assistant"</strong></h1>
+        <p class="text-center " style="margin-bottom: 200px;">This is a chat application that supports slide creation.</p>
       </div>
 
+            <!-- TODO : このページ内の説明を具体的にする, 画像を用意する -->
+        <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center mt-5">
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Judge Fairness by Chat</h5>
+                    <p class="card-text">Judge the fairness of uploaded pdf or text ...</p>
+                    <a href="{{ url_for('judge_fairness_chat.chat') }}" class="btn btn-primary">Chat <i class="bi bi-chat"></i></a>
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Image Search</h5>
+                    <p class="card-text">Label and search uploaded images ...</p>
+                    <a href="{{ url_for('image_chat.chat') }}" class="btn btn-primary">Search <i class="bi bi-search"></i></a>
+                  </div>
+
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">User's Manual</h5>
+                    <p class="card-text">Learn how to use our chat application.</p>
+                    <a href="{{ url_for('manual.manual') }}" class="btn btn-secondary">Learn More</a>
+                  </div>
+              </div>
+            </div>
+
+          </div>
+
+    </div>
+  </div>
 </div>
+
+<style>
+  .background-image {
+      background: url('../static/images/background_light.png') no-repeat center center;
+      background-size: cover;
+      position: absolute;
+      width: 100%;
+      height: 95%;
+      z-index: -1;
+  }
+  .my-cover {
+      background-color:  rgba(255, 255, 255, 0.4);
+      height: 100%;
+      width: 100%;
+  }
+</style>
 
 {% endblock %}

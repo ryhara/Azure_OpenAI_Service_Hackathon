@@ -141,6 +141,7 @@
 		.then(data => {
 			const botMessage = document.createElement('div');
 			botMessage.classList.add('mb-1', 'bot-message');
+			// TODO : 画像を表示する
 			botMessage.innerHTML = `<p><img src="{{ url_for('static', filename='images/penguin.png') }}" alt="Bot" class="image-size"> <strong>Bot</strong></p><pre>${escapeHtml(data)}</pre>`;
 			chatBox.appendChild(botMessage);
 
