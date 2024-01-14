@@ -73,10 +73,10 @@ def send_message():
     word_list = get_word_list(user_message)
     #取り出してみる
     result = ""
+    path_list = []
     for word in word_list:
         images = Image.get_all_images_by_label(label_name=word)
         #とりあえず三件だけ取り出してみる[:num]を調整することで数変えられる。
-        path_list = []
         for image in images[:3]:
             file_path = image.file_name
             path_list.append(file_path)
