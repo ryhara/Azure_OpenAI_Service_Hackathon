@@ -11,3 +11,4 @@ pandas
 tiktoken
 langchain
 pypdf
+azure-storage-blob
