@@ -27,13 +27,15 @@
 				<a class="navbar-brand fredoka-600" href="{{url_for('home')}}">Icy Slide Assistant </a>
 				<div class="current-page mr-auto">
 					{% if request.path == url_for('home') %}
-							<span style="color: #fff; text-decoration: underline solid #ccc auto;">Home</span>
+							<span style="color: #fff; text-decoration: underline solid #ccc auto;"><i class="bi bi-house-door-fill"></i> Home</span>
 					{% elif request.path == url_for('judge_fairness_chat.chat') %}
-							<span style="color: #fff; text-decoration: underline solid #ccc auto;">Judge Fairness by Chat</span>
+							<span style="color: #fff; text-decoration: underline solid #ccc auto;"><i class="bi bi-chat-dots"></i> Judge Fairness by Chat</span>
+					{% elif request.path == url_for('feedback.feedback') %}
+							<span style="color: #fff; text-decoration: underline solid #ccc auto;"><i class="bi bi-clipboard-check"></i> Feedback</span>
 					{% elif request.path == url_for('image_chat.chat') %}
-							<span style="color: #fff; text-decoration: underline solid #ccc auto;">Image Search</span>
+							<span style="color: #fff; text-decoration: underline solid #ccc auto;"><i class="bi bi-image"></i> Image Search</span>
 					{% elif request.path == url_for('manual.manual') %}
-							<span style="color: #fff; text-decoration: underline solid #ccc auto;">Manual</span>
+							<span style="color: #fff; text-decoration: underline solid #ccc auto;"><i class="bi bi-question-circle"></i> Manual</span>
 					{% endif %}
 				</div>
 				<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
@@ -53,6 +55,9 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link {{ 'active' if request.path == url_for('judge_fairness_chat.chat') else '' }}" href="{{url_for('judge_fairness_chat.chat')}}"><i class="bi bi-chat-dots"></i> Judge Fairness by Chat</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {{ 'active' if request.path == url_for('feedback.feedback') else '' }}" href="{{url_for('feedback.feedback')}}"><i class="bi bi-clipboard-check"></i> Feedback</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link {{ 'active' if request.path == url_for('image_chat.chat') else '' }}" href="{{url_for('image_chat.chat')}}"><i class="bi bi-image"></i> Image Search</a>
