@@ -61,6 +61,10 @@
 			width: 1.5em;
 			height: 1.5em;
 	}
+	.response-image {
+			width: 300px;
+			height: 300px;
+	}
 </style>
 
 <script>
@@ -137,12 +141,15 @@
         method: 'POST',
         body: formData
     })
-    .then(response => response.text())
+    .then(response => response.json())
 		.then(data => {
 			const botMessage = document.createElement('div');
 			botMessage.classList.add('mb-1', 'bot-message');
 			// TODO : 画像を表示する
-			botMessage.innerHTML = `<p><img src="{{ url_for('static', filename='images/penguin.png') }}" alt="Bot" class="image-size"> <strong>Bot</strong></p><pre>${escapeHtml(data)}</pre>`;
+			botMessage.innerHTML = `<p><img src="{{ url_for('static', filename='images/penguin.png') }}" alt="Bot" class="image-size"> <strong>Bot</strong></p><pre>`;
+			data.forEach(function(item, index) {
+				botMessage.innerHTML += `<img src="/static/uploads/${item}" alt="Bot" class="response-image">`;
+			});
 			chatBox.appendChild(botMessage);
 
 			chatBox.appendChild(document.createElement('hr'));

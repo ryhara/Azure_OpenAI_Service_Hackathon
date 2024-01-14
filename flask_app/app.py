@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, send_from_directory, jsonify
 from flask_app import create_app
 from flask_app.models import db, Image
 
@@ -10,6 +10,10 @@ with app.app_context():
 @app.route('/')
 def home():
     return render_template('home.index.html')
+
+@app.route('/uploads/<filename>')
+def uploads(filename):
+    return send_from_directory(app.config['UPLOAD_FILE_PATH'], filename)
 
 @app.errorhandler(404)
 def page_not_found(e):

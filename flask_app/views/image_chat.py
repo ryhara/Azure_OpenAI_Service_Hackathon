@@ -1,14 +1,13 @@
-from flask import Blueprint, render_template, redirect, url_for, request, current_app, jsonify
+from flask import Blueprint, render_template, redirect, url_for, request, current_app, jsonify, current_app
 import io
 import os
 import openai
 import requests
 from flask_app.models import Image
-upload_dir_path = '/app/flask_app/uploads/'
+
 image_chat_bp = Blueprint('image_chat', __name__)
 
 def get_label(image_file):
-    """
     vision_base_url = "https://japaneast.api.cognitive.microsoft.com/vision/v2.0/"
     analyze_url = vision_base_url + "analyze"
     # リクエストのヘッダーとパラメータ(local)
@@ -21,9 +20,7 @@ def get_label(image_file):
     analysis = response.json()
     #responseから説明を取り出す
     image_caption = analysis["description"]["captions"][0]["text"].capitalize()
-    print(image_caption)
-    """
-    return "penguin"
+    return image_caption
 
 def get_word_list(user_message):
     text = user_message
@@ -61,8 +58,9 @@ def upload_image():
 
     if file and file.filename != '':
         new_image = Image(file_name=file.filename, label=get_label(file.read()))
-        file_path = os.path.join(upload_dir_path,file.filename)
+        file_path = os.path.join(current_app.config['UPLOAD_FILE_PATH'], file.filename)
         new_image.register()
+        file.seek(0)
         file.save(file_path)
         return redirect(url_for('image_chat.chat'))
     return redirect(request.url)
@@ -75,11 +73,10 @@ def send_message():
     word_list = get_word_list(user_message)
     #取り出してみる
     result = ""
-    path_list = []
+    file_list = []
     for word in word_list:
         images = Image.get_all_images_by_label(label_name=word)
         #とりあえず三件だけ取り出してみる[:num]を調整することで数変えられる。
         for image in images[:3]:
-            file_path = os.path.join(upload_dir_path,image.file_name)
-            path_list.append(file_path)
-    return jsonify(path_list)
+            file_list.append(image.file_name)
+    return jsonify(file_list)
