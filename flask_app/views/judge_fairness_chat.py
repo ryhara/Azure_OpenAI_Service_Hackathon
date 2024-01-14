@@ -24,9 +24,9 @@ def send_message():
         text = user_message
 
     openai.api_key = current_app.config['OPENAI_API_KEY']
-    #openai.api_type = "azure"
-    #openai.api_base = current_app.config['OPENAI_ENDPOINT']
-    #openai.api_version = "2023-05-15"
+    openai.api_type = "azure"
+    openai.api_base = current_app.config['OPENAI_ENDPOINT']
+    openai.api_version = "2023-05-15"
     ###promptの設定
     ## TODO : 英語のpromptのほうが提出時には良いかも
     prompt_path = 'flask_app/data/fair_prompt.txt'
@@ -34,8 +34,8 @@ def send_message():
     with open(prompt_path) as f:
         prompt = str(f.read()) ##一応キャスト
     prompt = prompt.format(input=text)
-    completion = openai.ChatCompletion.create(
-    model='gpt-3.5-turbo',
+    completion = openai.Completion.create(
+    deployment_id='GPT35TURBO',
     messages=[
         {"role": "user", "content": prompt}
              ])
