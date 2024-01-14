@@ -9,4 +9,4 @@ def feedback():
 @feedback_bp.route('/feedback/send_message', methods=['POST'])
 def send_message():
     user_message = request.form.get('message')
-    return "Hello World"
+    return "Feedback function is not implemented yet."
