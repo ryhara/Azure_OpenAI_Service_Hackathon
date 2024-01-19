@@ -77,6 +77,9 @@ def upload_image():
 
     if file and file.filename != '':
         new_image = Image(file_name=file.filename, label=get_label(file.read()))
+        if Image.isInSameName(file.filename):
+            current_app.logger.warning("Same file name exists")
+            return jsonify({"error": "Same file name exists"}), 400
         file_path = os.path.join(current_app.config['UPLOAD_FILE_PATH'], file.filename)
         new_image.register()
         file.seek(0)

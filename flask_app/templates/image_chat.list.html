@@ -82,13 +82,21 @@
 			method: 'POST',
 			body: formData
 		})
-		.then(response => response.text())
+		.then(response => {
+			if (response.ok) {
+				return response.json();
+			} else {
+				throw new Error("Same File Name Exists.");
+			}
+		})
 		.then(data => {
 					imageInput.value = '';
 					alert("Uploaded Image Successfully!");
 					window.location.reload();
+					const imageBox = document.getElementById('image-box');
+					imageBox.scrollTop = imageBox.scroll
 			})
-			.catch(error => console.error('Error:', error));
+			.catch(error => {alert("Error: " + error.message)});
 	});
 	</script>
 

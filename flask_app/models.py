@@ -4,7 +4,7 @@ from sqlalchemy import Column, Integer, String
 class Image(db.Model):
     __tablename__ = 'images'
     id = db.Column(db.Integer, primary_key=True)
-    file_name = db.Column(db.String)
+    file_name = db.Column(db.String, unique=True)
     label = db.Column(db.String)
 
     def __init__(self, file_name, label):
@@ -35,3 +35,7 @@ class Image(db.Model):
     @classmethod
     def count_images(cls):
         return cls.query.count()
+
+    @classmethod
+    def isInSameName(cls, file_name):
+        return cls.query.filter(cls.file_name == file_name).count() > 0
