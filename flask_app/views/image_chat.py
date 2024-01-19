@@ -48,6 +48,21 @@ def get_word_list(user_message):
     word_list = responce.split(",")
     return word_list
 
+@image_chat_bp.route('/image_chat/list', methods=['GET'])
+def list():
+    images = Image.get_all_images()
+    return render_template('image_chat.list.html', images=images)
+
+@image_chat_bp.route('/image_chat/delete', methods=['POST'])
+def delete():
+    query = ""
+    query = request.args.get('file_name')
+    print(query)
+    if query:
+        Image.delete(query)
+        os.remove(os.path.join(current_app.config['UPLOAD_FILE_PATH'], query))
+        current_app.logger.info("Delete " + query + " from database and file system successfully.")
+    return redirect(url_for('image_chat.list'))
 
 @image_chat_bp.route('/image_chat')
 def chat():
@@ -56,16 +71,21 @@ def chat():
 @image_chat_bp.route('/upload_image', methods=['POST'])
 def upload_image():
     if 'image-input' not in request.files:
+        current_app.logger.warning("No file part")
         return redirect(request.url)
     file = request.files['image-input']
 
     if file and file.filename != '':
         new_image = Image(file_name=file.filename, label=get_label(file.read()))
+        if Image.isInSameName(file.filename):
+            current_app.logger.warning("Same file name exists")
+            return jsonify({"error": "Same file name exists"}), 400
         file_path = os.path.join(current_app.config['UPLOAD_FILE_PATH'], file.filename)
         new_image.register()
         file.seek(0)
         file.save(file_path)
-        return redirect(url_for('image_chat.chat'))
+        current_app.logger.info("Save " + file.filename + " to database and file system successfully.")
+        return redirect(url_for('image_chat.list'))
     return redirect(request.url)
 
 @image_chat_bp.route('/image_chat/send_message', methods=['POST'])
