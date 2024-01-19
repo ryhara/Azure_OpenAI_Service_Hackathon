@@ -19,5 +19,19 @@ class Image(db.Model):
         db.session.commit()
 
     @classmethod
+    def delete(cls, file_name):
+        if file_name:
+            db.session.query(cls).filter(cls.file_name == file_name).delete()
+            db.session.commit()
+
+    @classmethod
     def get_all_images_by_label(cls, label_name):
         return cls.query.filter(cls.label.like(f"%{label_name}%")).all()
+
+    @classmethod
+    def get_all_images(cls):
+        return cls.query.all()
+
+    @classmethod
+    def count_images(cls):
+        return cls.query.count()

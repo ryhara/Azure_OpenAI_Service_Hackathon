@@ -33,7 +33,9 @@
 					{% elif request.path == url_for('feedback.feedback') %}
 							<span style="color: #fff; text-decoration: underline solid #ccc auto;"><i class="bi bi-clipboard-check"></i> Feedback</span>
 					{% elif request.path == url_for('image_chat.chat') %}
-							<span style="color: #fff; text-decoration: underline solid #ccc auto;"><i class="bi bi-image"></i> Image Search</span>
+							<span style="color: #fff; text-decoration: underline solid #ccc auto;"><i class="bi bi-search"></i> Image Search</span>
+					{% elif request.path == url_for('image_chat.list') %}
+							<span style="color: #fff; text-decoration: underline solid #ccc auto;"><i class="bi bi-images"></i> Images List</span>
 					{% elif request.path == url_for('manual.manual') %}
 							<span style="color: #fff; text-decoration: underline solid #ccc auto;"><i class="bi bi-question-circle"></i> Manual</span>
 					{% endif %}
@@ -48,8 +50,6 @@
 					</div>
 					<div class="offcanvas-body">
 						<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-							<!-- TODO : activeに付いて設定 -->
-							<!-- TODO : hrefにurl_forを使う -->
 							<li class="nav-item">
 								<a class="nav-link {{ 'active' if request.path == url_for('home') else '' }}" aria-current="page" href="{{url_for('home')}}"><i class="bi bi-house-door-fill"></i> Home</a>
 							</li>
@@ -60,7 +60,12 @@
 								<a class="nav-link {{ 'active' if request.path == url_for('feedback.feedback') else '' }}" href="{{url_for('feedback.feedback')}}"><i class="bi bi-clipboard-check"></i> Feedback (implementing)</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link {{ 'active' if request.path == url_for('image_chat.chat') else '' }}" href="{{url_for('image_chat.chat')}}"><i class="bi bi-image"></i> Image Search</a>
+								<a class="nav-link {{ 'active' if request.path == url_for('image_chat.chat') else '' }}" href="{{url_for('image_chat.chat')}}"><i class="bi bi-search"></i> Image Search</a>
+								<ul class="list-unstyled ms-4">
+									<li class="nav-item">
+											<a class="nav-link {{ 'active' if request.path == url_for('image_chat.list') else '' }}" href="{{url_for('image_chat.list')}}"><i class="bi bi-images"></i> Images List</a>
+									</li>
+							</ul>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link {{ 'active' if request.path == url_for('manual.manual') else '' }}" href="{{url_for('manual.manual')}}"><i class="bi bi-question-circle"></i> Manual</a>
