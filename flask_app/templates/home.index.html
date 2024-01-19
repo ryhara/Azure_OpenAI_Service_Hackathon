@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<div class="background-image">
+<div class="background-image" style="overflow-y: auto;">
   <div class="my-cover">
     <div class="container p-2">
       <div class="my-5" >
@@ -10,7 +10,6 @@
         <p class="text-center " style="margin-bottom: 100px;">This is a chat application that supports slide creation.</p>
       </div>
 
-            <!-- TODO : このページ内の説明を具体的にする, 画像を用意する -->
         <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center mt-5">
             <div class="col-md-4">
               <div class="card h-100">
@@ -61,9 +60,8 @@
   .background-image {
       background: url('../static/images/background_light.png') no-repeat center center;
       background-size: cover;
-      position: absolute;
       width: 100%;
-      height: 95%;
+      height: 100%;
       z-index: -1;
   }
   .my-cover {
