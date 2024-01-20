@@ -116,12 +116,17 @@
 		const userMessage = document.createElement('div');
 		userMessage.classList.add('mb-1', 'user-message');
 		userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(message)}</pre>`;
-		chatBox.appendChild(userMessage);
-    fetch('/image_chat/send_message', {
+		const selectedOption = document.querySelector('input[name="chat-option"]:checked').value;
+		const postUrl = selectedOption === 'gpt-3-5' ? '/image_chat/send_message/gpt-3-5' : '/image_chat/send_message/gpt-4';
+    fetch(postUrl, {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+			if (!response.ok) {
+				throw new Error('Failed to send message because of not implemented yet.');
+			}
+		})
 		.then(data => {
 			const botMessage = document.createElement('div');
 			botMessage.classList.add('mb-1', 'bot-message');
@@ -135,7 +140,7 @@
 			chatBox.scrollTop = chatBox.scrollHeight;
 
 		}, (error) => {
-			console.log(error);
+			alert("Error: " + error.message);
 		});
 	});
 </script>

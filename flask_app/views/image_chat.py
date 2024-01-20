@@ -88,8 +88,12 @@ def upload_image():
         return redirect(url_for('image_chat.list'))
     return redirect(request.url)
 
-@image_chat_bp.route('/image_chat/send_message', methods=['POST'])
-def send_message():
+@image_chat_bp.route('/image_chat/send_message/gpt-4', methods=['POST'])
+def send_message_4():
+    return jsonify({"error": "Image Chat GPT4 function is not implemented yet."}), 400
+
+@image_chat_bp.route('/image_chat/send_message/gpt-3-5', methods=['POST'])
+def send_message_3_5():
     ###ひとまずデータベースから与えられた単語に一致するデータを拾ってくる。
     ###user_messageは本来単語じゃないのでGPTを使って単語のリストに処理する必要がある。
     user_message = request.form.get('message')
