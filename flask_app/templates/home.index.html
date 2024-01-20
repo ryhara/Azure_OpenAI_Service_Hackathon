@@ -1,57 +1,70 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
 <div class="background-image" style="overflow-y: auto;">
   <div class="my-cover">
     <div class="container p-2">
-      <div class="my-5" >
-        <h1 class="rubik-doodle text-center mt-2">Welcome to <strong>"Icy Slide Assistant"</strong></h1>
-        <p class="text-center " style="margin-bottom: 100px;">This is a chat application that supports slide creation.</p>
+      <h1 class="rubik-doodle text-center mt-2">Welcome to <strong>"Icy Slide Assistant"</strong></h1>
+      <p class="text-center">This is a chat application that supports slide creation.</p>
+
+      <!-- 画面を4等分するためのグリッド -->
+      <div class="row mt-4">
+        <!-- セクション1 -->
+        <div class="col-md-6">
+          <section id="judge-fairness" class="mt-2">
+            <h2 class="text-center"><i class="bi bi-chat-dots"></i> Judge Fairness by Chat</h2><br>
+            <div class="d-flex justify-content-center align-items-center">
+              <img src="{{url_for('static', filename='images/feedback.png')}}" class="img-fluid my-2" alt="Responsive image" width="80%" height="20%" style="opacity: 0.9;">
+            </div>
+            <p class="text-center">
+              Judge the fairness of uploaded pdf or text ...
+            </p>
+            </section>
+        </div>
+        <!-- セクション2 -->
+        <div class="col-md-6">
+          <section id="features" class="mt-2">
+            <h2 class="text-center"><i class="bi bi-clipboard-check"></i> Feedback</h2><br>
+            <div class="d-flex justify-content-center align-items-center">
+              <img src="{{url_for('static', filename='images/feedback.png')}}" class="img-fluid my-2" alt="Responsive image" width="80%" height="20%" style="opacity: 0.9;">
+            </div>
+            <p class="text-center">
+              Summarizes feedback from others ...
+            </p>
+            </section>
+        </section>
+        </div>
       </div>
 
-        <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center mt-5">
-            <div class="col-md-4">
-              <div class="card h-100">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Judge Fairness by Chat</h5>
-                    <p class="card-text">Judge the fairness of uploaded pdf or text ...</p>
-                    <a href="{{ url_for('judge_fairness_chat.chat') }}" class="btn btn-primary">Chat <i class="bi bi-chat"></i></a>
-                  </div>
-              </div>
+      <div class="row">
+        <!-- セクション3 -->
+        <div class="col-md-6">
+          <section id="features" class="mt-2">
+            <h2 class="text-center"><i class="bi bi-images"></i> Image Search</h2><br>
+            <div class="d-flex justify-content-center align-items-center">
+              <img src="{{url_for('static', filename='images/feedback.png')}}" class="img-fluid my-2" alt="Responsive image" width="80%" height="20%" style="opacity: 0.9;">
             </div>
-            <div class="col-md-4">
-              <div class="card h-100">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Feedback</h5>
-                    <p class="card-text">Summarizes feedback from others ...</p>
-                    <a href="{{ url_for('feedback.feedback') }}" class="btn btn-primary">Feedback <i class="bi bi-clipboard-check"></i></a>
-                  </div>
-
-              </div>
+            <p class="text-center">
+              Label and search uploaded images ...
+            </p>
+            </section>
+        </section>
+        </div>
+        <!-- セクション4 -->
+        <div class="col-md-6">
+          <section id="features" class="mt-2">
+            <h2 class="text-center">Other</h2><br>
+            <div class="d-flex justify-content-center align-items-center">
+              <img src="{{url_for('static', filename='images/feedback.png')}}" class="img-fluid my-2" alt="Responsive image" width="80%" height="20%" style="opacity: 0.9;">
             </div>
-            <div class="col-md-4">
-              <div class="card h-100">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Image Search</h5>
-                    <p class="card-text">Label and search uploaded images ...</p>
-                    <a href="{{ url_for('image_chat.chat') }}" class="btn btn-primary">Search <i class="bi bi-search"></i></a>
-                  </div>
-
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card h-100">
-                <div class="card-body text-center">
-                    <h5 class="card-title">User's Manual</h5>
-                    <p class="card-text">Learn how to use our chat application.</p>
-                    <a href="{{ url_for('manual.manual') }}" class="btn btn-secondary">Learn More</a>
-                  </div>
-              </div>
-            </div>
-
-          </div>
-
+            <p class="text-center">
+                aaaaaaaa
+            </p>
+            <p class="text-center">bbbbbbbbbbbbbbbbb</p>
+            </section>
+        </section>
+        </div>
+      </div>
     </div>
   </div>
 </div>
