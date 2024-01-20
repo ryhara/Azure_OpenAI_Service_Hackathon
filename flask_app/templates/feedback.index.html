@@ -134,7 +134,9 @@
 			userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(message)}</pre>`;
 		}
 		chatBox.appendChild(userMessage);
-    fetch('/feedback/send_message', {
+		const selectedOption = document.querySelector('input[name="chat-option"]:checked').value;
+		const postUrl = selectedOption === 'gpt-3-5' ? '/feedback/send_message/gpt-3-5' : '/feedback/send_message/gpt-4';
+    fetch(postUrl, {
         method: 'POST',
         body: formData
     })
