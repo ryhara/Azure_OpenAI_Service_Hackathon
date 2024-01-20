@@ -10,8 +10,12 @@ judge_fairness_chat_bp = Blueprint('judge_fairness_chat', __name__)
 def chat():
     return render_template('judge_fairness_chat.index.html')
 
-@judge_fairness_chat_bp.route('/judge_fairness_chat/send_message', methods=['POST'])
-def send_message():
+@judge_fairness_chat_bp.route('/judge_fairness_chat/send_message/gpt-4', methods=['POST'])
+def send_message_4():
+    return "Judge Fairness GPT4 function is not implemented yet."
+
+@judge_fairness_chat_bp.route('/judge_fairness_chat/send_message/gpt-3-5', methods=['POST'])
+def send_message_3_5():
     # user_messageかpdf_fileどちらかは必須で入る。
     # pdfがない場合user_messageをtextとして使う, ２つ入力がある場合はpdfを優先する
     user_message = request.form.get('message')
