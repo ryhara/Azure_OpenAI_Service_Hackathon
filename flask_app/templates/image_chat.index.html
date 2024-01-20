@@ -9,7 +9,7 @@
 	<div class="chat-form-container text-center w-100 flex-grow-1 d-flex flex-column justify-content-end">
 			<div class="d-flex mb-4 align-items-center justify-content-center" style="width: 100%;">
 						<div style="width: 10%;">
-							<a href="{{ url_for('image_chat.list') }}" class="btn btn-primary mx-2" ><i class="bi bi-images"></i> Images</a>
+							<a href="{{ url_for('image_chat.list') }}" class="btn btn-secondary me-4 btn-sm" ><i class="bi bi-images"></i> Images</a>
 						</div>
 						<div class="input-group"  style="width: 60%;">
 							<textarea id="chat-input" class="form-control" placeholder="Type a message..." rows="1"></textarea>
@@ -17,6 +17,13 @@
 									<i class="bi bi-send-fill"></i>
 							</button>
 						</div>
+						<div class="btn-group chat-options ms-4" role="group" aria-label="gpt">
+							<input type="radio" class="btn-check" name="chat-option" value="gpt-3-5" id="btnradio1" autocomplete="off" checked>
+							<label class="btn btn-outline-primary" for="btnradio1">GPT-3.5</label>
+
+							<input type="radio" class="btn-check" name="chat-option" value="/gpt-4" id="btnradio2" autocomplete="off">
+							<label class="btn btn-outline-primary" for="btnradio2">GPT-4</label>
+					</div>
 			</div>
 			<div class="chat-instructions text-center w-50 mx-auto mb-1">
 					Shift + Enter or Click Send button to send a message
