@@ -1,160 +1,211 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block body %}
 
-{% block body %}
+<div
+  class="container d-flex flex-column justify-content-center align-items-center h-100"
+>
+  <div id="chat-box" class="mt-3 w-75">
+    <!-- chat will be displayed here -->
+  </div>
+  <div
+    class="chat-form-container text-center w-100 flex-grow-1 d-flex flex-column justify-content-end"
+  >
+    <div class="d-flex justify-content-between align-items-end w-100">
+      <form
+        id="chat-form"
+        class="input-group mb-4"
+        style="width: 60%; margin-left: 20vw"
+      >
+        <label class="input-group-text" for="pdf-input">
+          <i class="bi bi-filetype-pdf"></i>
+        </label>
+        <input
+          type="file"
+          id="pdf-input"
+          accept="application/pdf"
+          class="form-control"
+          style="display: none"
+        />
+        <textarea
+          id="chat-input"
+          class="form-control"
+          placeholder="Type a message..."
+          rows="1"
+        ></textarea>
+        <button type="submit" class="btn btn-dark">
+          <i class="bi bi-send-fill"></i>
+        </button>
+      </form>
+    </div>
+    <div
+      class="btn-group chat-options ms-auto me-4 mb-4 fixed-bottom"
+      role="group"
+      aria-label="gpt"
+      style="width: 10%"
+    >
+      <input
+        type="radio"
+        class="btn-check"
+        name="chat-option"
+        value="gpt-3-5"
+        id="btnradio1"
+        autocomplete="off"
+        checked
+      />
+      <label class="btn btn-outline-primary" for="btnradio1">GPT-3.5</label>
 
-<div class="container d-flex flex-column justify-content-center align-items-center h-100">
-	<div id="chat-box" class="mt-3 w-75">
-			<!-- chat will be displayed here -->
-	</div>
-	<div class="chat-form-container text-center w-100 flex-grow-1 d-flex flex-column justify-content-end">
-		<div class="d-flex justify-content-between align-items-end w-100" >
-			<form id="chat-form" class="input-group mb-4" style="width: 60%; margin-left: 20vw;">
-				<label class="input-group-text" for="pdf-input">
-					<i class="bi bi-filetype-pdf"></i>
-				</label>
-				<input type="file" id="pdf-input" accept="application/pdf" class="form-control" style="display: none;">
-				<textarea id="chat-input" class="form-control" placeholder="Type a message..." rows="1"></textarea>
-				<button type="submit" class="btn btn-dark">
-					<i class="bi bi-send-fill"></i>
-				</button>
-			</form>
-		</div>
-		<div class="btn-group chat-options ms-auto me-4 mb-4 fixed-bottom " role="group" aria-label="gpt" style="width: 10%;">
-			<input type="radio" class="btn-check" name="chat-option" value="gpt-3-5" id="btnradio1" autocomplete="off" checked>
-			<label class="btn btn-outline-primary" for="btnradio1">GPT-3.5</label>
-
-			<input type="radio" class="btn-check" name="chat-option" value="/gpt-4" id="btnradio2" autocomplete="off">
-			<label class="btn btn-outline-primary" for="btnradio2">GPT-4</label>
-		</div>
-		<div class="chat-instructions text-center w-50 mx-auto mb-1 fixed-bottom">
-				Shift + Enter or Click button to send a message
-		</div>
-	</div>
+      <input
+        type="radio"
+        class="btn-check"
+        name="chat-option"
+        value="/gpt-4"
+        id="btnradio2"
+        autocomplete="off"
+      />
+      <label class="btn btn-outline-primary" for="btnradio2">GPT-4</label>
+    </div>
+    <div class="chat-instructions text-center w-50 mx-auto mb-1 fixed-bottom">
+      Shift + Enter or Click button to send a message
+    </div>
+  </div>
 </div>
 
-
 <style>
-	#chat-box {
+  #chat-box {
     max-height: 700px;
     overflow-y: auto;
-}
-	#chat-form {
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
-	}
-	#chat-form .btn {
-			border-top-left-radius: 0;
-			border-bottom-left-radius: 0;
-	}
-	#chat-input {
-		max-height: 100px;
-		overflow-y: auto;
-	}
-	.chat-instructions {
-			color: #999;
-			font-size: 12px;
-	}
-	pre {
-			white-space: pre-wrap;
-			word-wrap: break-word;
-	}
-	.image-size {
-			width: 1.5em;
-			height: 1.5em;
-	}
+  }
+  #chat-form {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  #chat-form .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  #chat-input {
+    max-height: 100px;
+    overflow-y: auto;
+  }
+  .chat-instructions {
+    color: #999;
+    font-size: 12px;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .image-size {
+    width: 1.5em;
+    height: 1.5em;
+  }
 </style>
 
 <script>
-	document.getElementById('pdf-input').addEventListener('change', function() {
-		const label = document.querySelector('label[for="pdf-input"]');
-		if (this.files.length > 0) {
-			const fileName = this.files[0].name;
-			label.innerHTML = '<i class="bi bi-filetype-pdf"></i> ' + fileName;
-		} else {
-			label.innerHTML = '<i class="bi bi-filetype-pdf"></i>';
-		}
-	});
-</script>
-
-<script>
-	document.getElementById('chat-input').addEventListener('keydown', function(e) {
-    if (e.shiftKey && e.key === 'Enter') {
-        e.preventDefault();
-        document.getElementById('chat-form').querySelector('button[type="submit"]').click();
+  document.getElementById("pdf-input").addEventListener("change", function () {
+    const label = document.querySelector('label[for="pdf-input"]');
+    if (this.files.length > 0) {
+      const fileName = this.files[0].name;
+      label.innerHTML = '<i class="bi bi-filetype-pdf"></i> ' + fileName;
+    } else {
+      label.innerHTML = '<i class="bi bi-filetype-pdf"></i>';
     }
-});
+  });
 </script>
 
 <script>
-	const textarea = document.getElementById('chat-input');
-
-	textarea.addEventListener('input', function() {
-			// スクロール高さに基づいて高さを設定
-			this.style.height = 'auto';
-			const maxHeight = 100;
-			this.style.height = Math.min(this.scrollHeight, maxHeight) + 'px';
-	});
+  document
+    .getElementById("chat-input")
+    .addEventListener("keydown", function (e) {
+      if (e.shiftKey && e.key === "Enter") {
+        e.preventDefault();
+        document
+          .getElementById("chat-form")
+          .querySelector('button[type="submit"]')
+          .click();
+      }
+    });
 </script>
 
 <script>
-	function escapeHtml(text) {
-    const div = document.createElement('div');
+  const textarea = document.getElementById("chat-input");
+
+  textarea.addEventListener("input", function () {
+    // スクロール高さに基づいて高さを設定
+    this.style.height = "auto";
+    const maxHeight = 100;
+    this.style.height = Math.min(this.scrollHeight, maxHeight) + "px";
+  });
+</script>
+
+<script>
+  function escapeHtml(text) {
+    const div = document.createElement("div");
     div.appendChild(document.createTextNode(text));
     return div.innerHTML;
-}
-	document.getElementById('chat-form').addEventListener('submit', function(e) {
-		e.preventDefault();
-		const inputElement = document.getElementById('chat-input');
+  }
+  document.getElementById("chat-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const inputElement = document.getElementById("chat-input");
     const message = inputElement.value.trim();
-    const pdfInput = document.getElementById('pdf-input');
+    const pdfInput = document.getElementById("pdf-input");
     const pdfFile = pdfInput ? pdfInput.files[0] : null;
-		inputElement.value = '';
-		pdfInput.value = '';
-    if (message === '' && !pdfFile) {
-				inputElement.style.height = 'auto';
-        return;
+    inputElement.value = "";
+    pdfInput.value = "";
+    if (message === "" && !pdfFile) {
+      inputElement.style.height = "auto";
+      return;
     }
 
     const formData = new FormData();
-    if (message !== '')
-				formData.append('message', message);
-    if (pdfFile)
-        formData.append('pdf', pdfFile);
+    if (message !== "") formData.append("message", message);
+    if (pdfFile) formData.append("pdf", pdfFile);
 
-		inputElement.style.height = 'auto';
-		const chatBox = document.getElementById('chat-box');
-		const userMessage = document.createElement('div');
-		userMessage.classList.add('mb-1', 'user-message');
-		if (pdfFile) {
-			const inputFileName = "Input: " + pdfFile.name;
-			userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(inputFileName)}</pre>`;
-		} else {
-			userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(message)}</pre>`;
-		}
-		chatBox.appendChild(userMessage);
-		const selectedOption = document.querySelector('input[name="chat-option"]:checked').value;
-		const postUrl = selectedOption === 'gpt-3-5' ? '/feedback/send_message/gpt-3-5' : '/feedback/send_message/gpt-4';
+    inputElement.style.height = "auto";
+    const chatBox = document.getElementById("chat-box");
+    const userMessage = document.createElement("div");
+    userMessage.classList.add("mb-1", "user-message");
+    if (pdfFile) {
+      const inputFileName = "Input: " + pdfFile.name;
+      userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(
+        inputFileName
+      )}</pre>`;
+    } else {
+      userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(
+        message
+      )}</pre>`;
+    }
+    chatBox.appendChild(userMessage);
+    const selectedOption = document.querySelector(
+      'input[name="chat-option"]:checked'
+    ).value;
+    const postUrl =
+      selectedOption === "gpt-3-5"
+        ? "/feedback/send_message/gpt-3-5"
+        : "/feedback/send_message/gpt-4";
     fetch(postUrl, {
-        method: 'POST',
-        body: formData
+      method: "POST",
+      body: formData,
     })
-    .then(response => response.text())
-		.then(data => {
-			const botMessage = document.createElement('div');
-			botMessage.classList.add('mb-1', 'bot-message');
-			botMessage.innerHTML = `<p><img src="{{ url_for('static', filename='images/penguin.png') }}" alt="Bot" class="image-size"> <strong>Bot</strong></p><pre>${escapeHtml(data)}</pre>`;
-			chatBox.appendChild(botMessage);
+      .then((response) => response.text())
+      .then(
+        (data) => {
+          const botMessage = document.createElement("div");
+          botMessage.classList.add("mb-1", "bot-message");
+          botMessage.innerHTML = `<p><img src="{{ url_for('static', filename='images/penguin.png') }}" alt="Bot" class="image-size"> <strong>Bot</strong></p><pre>${escapeHtml(
+            data
+          )}</pre>`;
+          chatBox.appendChild(botMessage);
 
-			chatBox.appendChild(document.createElement('hr'));
-			chatBox.scrollTop = chatBox.scrollHeight;
-
-		}, (error) => {
-			console.log(error);
-		});
-	});
+          chatBox.appendChild(document.createElement("hr"));
+          chatBox.scrollTop = chatBox.scrollHeight;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  });
 </script>
-
 
 {% endblock %}
