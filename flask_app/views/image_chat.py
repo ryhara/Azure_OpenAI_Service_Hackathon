@@ -85,8 +85,8 @@ def upload_image():
         file.seek(0)
         file.save(file_path)
         current_app.logger.info("Save " + file.filename + " to database and file system successfully.")
-        return redirect(url_for('image_chat.list'))
-    return redirect(request.url)
+        return jsonify({"message": "Upload image successfully."}), 200
+    return jsonify({"error": "Upload image failed."}), 400  
 
 @image_chat_bp.route('/image_chat/send_message/gpt-4', methods=['POST'])
 def send_message_4():
