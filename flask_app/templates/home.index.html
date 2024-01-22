@@ -1,38 +1,57 @@
-{% extends "layout.html" %}
-
-{% block body %}
-<div class="background-image" style="overflow-y: auto;">
+{% extends "layout.html" %} {% block body %}
+<div class="background-image" style="overflow-y: auto">
   <div class="my-cover">
     <div class="container p-2">
-      <h1 class="rubik-doodle text-center mt-2">Welcome to <strong>"Icy Slide Assistant"</strong></h1>
-      <p class="text-center">This is a chat application that supports slide creation.</p>
+      <h1 class="rubik-doodle text-center mt-2">
+        Welcome to <strong>"Icy Slide Assistant"</strong>
+      </h1>
+      <p class="text-center">
+        This is a chat application that supports slide creation.
+      </p>
 
       <!-- 画面を4等分するためのグリッド -->
       <div class="row mt-4">
         <!-- セクション1 -->
         <div class="col-md-6">
           <section id="judge-fairness" class="mt-2">
-            <h2 class="text-center"><i class="bi bi-chat-dots"></i> Judge Fairness by Chat</h2><br>
+            <h2 class="text-center">
+              <i class="bi bi-chat-dots"></i> Judge Fairness by Chat
+            </h2>
+            <br />
             <div class="d-flex justify-content-center align-items-center">
-              <img src="{{url_for('static', filename='images/feedback.png')}}" class="img-fluid my-2" alt="Responsive image" width="80%" height="20%" style="opacity: 0.9;">
+              <img
+                src="{{url_for('static', filename='images/feedback.png')}}"
+                class="img-fluid my-2"
+                alt="Responsive image"
+                width="80%"
+                height="20%"
+                style="opacity: 0.9"
+              />
             </div>
             <p class="text-center">
               Judge the fairness of uploaded pdf or text ...
             </p>
-            </section>
+          </section>
         </div>
         <!-- セクション2 -->
         <div class="col-md-6">
           <section id="features" class="mt-2">
-            <h2 class="text-center"><i class="bi bi-clipboard-check"></i> Feedback</h2><br>
+            <h2 class="text-center">
+              <i class="bi bi-clipboard-check"></i> Feedback
+            </h2>
+            <br />
             <div class="d-flex justify-content-center align-items-center">
-              <img src="{{url_for('static', filename='images/feedback.png')}}" class="img-fluid my-2" alt="Responsive image" width="80%" height="20%" style="opacity: 0.9;">
+              <img
+                src="{{url_for('static', filename='images/feedback.png')}}"
+                class="img-fluid my-2"
+                alt="Responsive image"
+                width="80%"
+                height="20%"
+                style="opacity: 0.9"
+              />
             </div>
-            <p class="text-center">
-              Summarizes feedback from others ...
-            </p>
-            </section>
-        </section>
+            <p class="text-center">Summarizes feedback from others ...</p>
+          </section>
         </div>
       </div>
 
@@ -40,29 +59,41 @@
         <!-- セクション3 -->
         <div class="col-md-6">
           <section id="features" class="mt-2">
-            <h2 class="text-center"><i class="bi bi-images"></i> Image Search</h2><br>
+            <h2 class="text-center">
+              <i class="bi bi-images"></i> Image Search
+            </h2>
+            <br />
             <div class="d-flex justify-content-center align-items-center">
-              <img src="{{url_for('static', filename='images/feedback.png')}}" class="img-fluid my-2" alt="Responsive image" width="80%" height="20%" style="opacity: 0.9;">
+              <img
+                src="{{url_for('static', filename='images/feedback.png')}}"
+                class="img-fluid my-2"
+                alt="Responsive image"
+                width="80%"
+                height="20%"
+                style="opacity: 0.9"
+              />
             </div>
-            <p class="text-center">
-              Label and search uploaded images ...
-            </p>
-            </section>
-        </section>
+            <p class="text-center">Label and search uploaded images ...</p>
+          </section>
         </div>
         <!-- セクション4 -->
         <div class="col-md-6">
           <section id="features" class="mt-2">
-            <h2 class="text-center">Other</h2><br>
+            <h2 class="text-center">Other</h2>
+            <br />
             <div class="d-flex justify-content-center align-items-center">
-              <img src="{{url_for('static', filename='images/feedback.png')}}" class="img-fluid my-2" alt="Responsive image" width="80%" height="20%" style="opacity: 0.9;">
+              <img
+                src="{{url_for('static', filename='images/feedback.png')}}"
+                class="img-fluid my-2"
+                alt="Responsive image"
+                width="80%"
+                height="20%"
+                style="opacity: 0.9"
+              />
             </div>
-            <p class="text-center">
-                aaaaaaaa
-            </p>
+            <p class="text-center">aaaaaaaa</p>
             <p class="text-center">bbbbbbbbbbbbbbbbb</p>
-            </section>
-        </section>
+          </section>
         </div>
       </div>
     </div>
@@ -71,16 +102,17 @@
 
 <style>
   .background-image {
-      background: url('../static/images/background_light.png') no-repeat center center;
-      background-size: cover;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
+    background: url("../static/images/background_light.png") no-repeat center
+      center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
   }
   .my-cover {
-      background-color:  rgba(255, 255, 255, 0.4);
-      height: 100%;
-      width: 100%;
+    background-color: rgba(255, 255, 255, 0.4);
+    height: 100%;
+    width: 100%;
   }
 </style>
 
