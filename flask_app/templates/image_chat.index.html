@@ -125,13 +125,7 @@
       userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(
         message
       )}</pre>`;
-      const selectedOption = document.querySelector(
-        'input[name="chat-option"]:checked'
-      ).value;
-      const postUrl =
-        selectedOption === "gpt-3-5"
-          ? "/image_chat/send_message/gpt-3-5"
-          : "/image_chat/send_message/gpt-4";
+      const postUrl = "/image_chat/send_message";
       fetch(postUrl, {
         method: "POST",
         body: formData,
