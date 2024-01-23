@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, current_app
 import os
-import openai
+from openai import AzureOpenAI
 from pypdf import PdfReader
 
 judge_fairness_chat_bp = Blueprint('judge_fairness_chat', __name__)
@@ -21,22 +21,23 @@ def send_message_4():
     else:
         text = user_message
 
-    openai.api_key = current_app.config['OPENAI_API_KEY']
-    openai.api_type = "azure"
-    openai.api_base = current_app.config['OPENAI_ENDPOINT']
-    openai.api_version = "2023-05-15"
+    client = AzureOpenAI(
+        api_key = current_app.config['OPENAI_API_KEY'],
+        azure_endpoint = current_app.config['OPENAI_ENDPOINT'],
+        api_version = "2023-05-15"
+    )
     ###promptの設定
     prompt_path = 'flask_app/data/fair_prompt.txt'
     prompt = ""
     with open(prompt_path) as f:
         prompt = str(f.read()) ##一応キャスト
     prompt = prompt.format(input=text)
-    completion = openai.ChatCompletion.create(
-    deployment_id='GPT4',
+    completion = client.chat.completions.create(
+    model='GPT4',
     messages=[
         {"role": "user", "content": prompt}
              ])
-    response = completion.choices[0].message['content']
+    response = completion.choices[0].message.content
     return response
 
 @judge_fairness_chat_bp.route('/judge_fairness_chat/send_message/gpt-3-5', methods=['POST'])
@@ -52,20 +53,21 @@ def send_message_3_5():
     else:
         text = user_message
 
-    openai.api_key = current_app.config['OPENAI_API_KEY']
-    openai.api_type = "azure"
-    openai.api_base = current_app.config['OPENAI_ENDPOINT']
-    openai.api_version = "2023-05-15"
+    client = AzureOpenAI(
+        api_key = current_app.config['OPENAI_API_KEY'],
+        azure_endpoint = current_app.config['OPENAI_ENDPOINT'],
+        api_version = "2023-05-15"
+    )
     ###promptの設定
     prompt_path = 'flask_app/data/fair_prompt.txt'
     prompt = ""
     with open(prompt_path) as f:
         prompt = str(f.read()) ##一応キャスト
     prompt = prompt.format(input=text)
-    completion = openai.ChatCompletion.create(
-    deployment_id='GPT35TURBO',
+    completion = client.chat.completions.create(
+    model='GPT35TURBO',
     messages=[
         {"role": "user", "content": prompt}
              ])
-    response = completion.choices[0].message['content']
+    response = completion.choices[0].message.content
     return response
