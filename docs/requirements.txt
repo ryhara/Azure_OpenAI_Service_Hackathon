@@ -1,7 +1,7 @@
 Flask
 Flask-SQLAlchemy
 python-dotenv
-openai==0.28
+openai==1.9.0
 num2words
 matplotlib
 plotly
