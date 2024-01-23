@@ -9,7 +9,7 @@ def encode_image(image_path):
       return base64.b64encode(image_file.read()).decode('utf-8')
 
 def get_image_caption(image_path):
-    azure_endpoint = "https://sunhackathon4.openai.azure.com/openai/deployments/GPT4/chat/completions?api-version=2023-12-01-preview"
+    azure_endpoint =  current_app['OPENAI_ENDPOINT']+"/openai/deployments/GPT4/chat/completions?api-version=2023-12-01-preview"
     api_key = current_app.config['OPENAI_API_KEY']
     gpt4_turbo_vision = "gpt-4-vision-preview"
     prompt = "please describe this image."
