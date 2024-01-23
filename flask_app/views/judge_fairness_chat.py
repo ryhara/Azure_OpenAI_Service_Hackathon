@@ -12,7 +12,32 @@ def chat():
 
 @judge_fairness_chat_bp.route('/judge_fairness_chat/send_message/gpt-4', methods=['POST'])
 def send_message_4():
-    return "Judge Fairness GPT4 function is not implemented yet."
+    user_message = request.form.get('message')
+    pdf_file = request.files.get('pdf')
+    text = ''
+    if pdf_file and pdf_file.filename.endswith('.pdf'):
+        reader = PdfReader(pdf_file)
+        text = reader.pages[0].extract_text()
+    else:
+        text = user_message
+
+    openai.api_key = current_app.config['OPENAI_API_KEY']
+    openai.api_type = "azure"
+    openai.api_base = current_app.config['OPENAI_ENDPOINT']
+    openai.api_version = "2023-05-15"
+    ###promptの設定
+    prompt_path = 'flask_app/data/fair_prompt.txt'
+    prompt = ""
+    with open(prompt_path) as f:
+        prompt = str(f.read()) ##一応キャスト
+    prompt = prompt.format(input=text)
+    completion = openai.ChatCompletion.create(
+    deployment_id='GPT4',
+    messages=[
+        {"role": "user", "content": prompt}
+             ])
+    response = completion.choices[0].message['content']
+    return response
 
 @judge_fairness_chat_bp.route('/judge_fairness_chat/send_message/gpt-3-5', methods=['POST'])
 def send_message_3_5():
@@ -32,7 +57,6 @@ def send_message_3_5():
     openai.api_base = current_app.config['OPENAI_ENDPOINT']
     openai.api_version = "2023-05-15"
     ###promptの設定
-    ## TODO : 英語のpromptのほうが提出時には良いかも
     prompt_path = 'flask_app/data/fair_prompt.txt'
     prompt = ""
     with open(prompt_path) as f:
@@ -43,5 +67,5 @@ def send_message_3_5():
     messages=[
         {"role": "user", "content": prompt}
              ])
-    responce = completion.choices[0].message['content']
-    return responce
+    response = completion.choices[0].message['content']
+    return response
