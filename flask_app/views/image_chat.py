@@ -3,25 +3,29 @@ import io
 import os
 import openai
 import requests
-from flask_app.models import Image
-
+import base64
+from flask_app.models import Image,sampleDB
+from PIL import Image as Im
+from io import BytesIO
+from flask_app.models import encode_image,get_image_caption,text_embedding
 image_chat_bp = Blueprint('image_chat', __name__)
-
+database = sampleDB()
 def get_label(image_file):
-    vision_base_url = "https://japaneast.api.cognitive.microsoft.com/vision/v2.0/"
-    analyze_url = vision_base_url + "analyze"
-    # リクエストのヘッダーとパラメータ(local)
-    subscription_key = current_app.config['AZURE_IMAGE_CAPTIONING_API_KEY']
-    headers = {'Ocp-Apim-Subscription-Key': subscription_key, 'Content-Type': 'application/octet-stream'}
-    params = {'visualFeatures': 'Categories,Description,Color'}
-    with io.BytesIO(image_file) as image_data:
-        response = requests.post(analyze_url, headers=headers, params=params, data=image_data)
-        response.raise_for_status()
-    analysis = response.json()
-    #responseから説明を取り出す
-    image_caption = analysis["description"]["captions"][0]["text"].capitalize()
+    ##ファイルのencode
+    file_content = image_file.read()
+    #base64にする前にリサイズしなきゃいけない気がする。
+    file_content = Im.open(BytesIO(file_content))
+    new_width = 90
+    new_height = 90
+    resized_image = file_content.resize((new_width, new_height))
+    buffer = BytesIO()
+    resized_image.save(buffer, format='PNG')
+    file_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    ##OpenAIの呼び出し
+    image_caption = get_image_caption(b64_image=file_base64)
     return image_caption
-
+###この関数使わない
+"""
 def get_word_list(user_message):
     text = user_message
     openai.api_key = current_app.config['OPENAI_API_KEY']
@@ -47,7 +51,7 @@ def get_word_list(user_message):
     responce = completion.choices[0].message['content']
     word_list = responce.split(",")
     return word_list
-
+"""
 @image_chat_bp.route('/image_chat/list', methods=['GET'])
 def list():
     images = Image.get_all_images()
@@ -57,9 +61,10 @@ def list():
 def delete():
     query = ""
     query = request.args.get('file_name')
-    print(query)
     if query:
+        #database = sampleDB()
         Image.delete(query)
+        #database.delete(file_name=query)
         os.remove(os.path.join(current_app.config['UPLOAD_FILE_PATH'], query))
         current_app.logger.info("Delete " + query + " from database and file system successfully.")
     return redirect(url_for('image_chat.list'))
@@ -76,10 +81,14 @@ def upload_image():
     file = request.files['image-input']
 
     if file and file.filename != '':
-        new_image = Image(file_name=file.filename, label=get_label(file.read()))
+        label = get_label(file)
+        new_image = Image(file_name=file.filename, label=label)
         if Image.isInSameName(file.filename):
             current_app.logger.warning("Same file name exists")
             return jsonify({"error": "Same file name exists"}), 400
+        database = sampleDB()
+        database.insert(file_name=file.filename,
+                        label=label)
         file_path = os.path.join(current_app.config['UPLOAD_FILE_PATH'], file.filename)
         new_image.register()
         file.seek(0)
@@ -93,13 +102,19 @@ def send_message():
     ###ひとまずデータベースから与えられた単語に一致するデータを拾ってくる。
     ###user_messageは本来単語じゃないのでGPTを使って単語のリストに処理する必要がある。
     user_message = request.form.get('message')
-    word_list = get_word_list(user_message)
+    #word_list = get_word_list(user_message)
     #取り出してみる
-    result = ""
-    file_list = []
+    #result = ""
+    database = sampleDB()
+    print("user_message is {}".format(user_message))
+    file_list = database.search(str(user_message),k=1)
+    """
+    以下使わない関数
     for word in word_list:
         images = Image.get_all_images_by_label(label_name=word)
         #とりあえず三件だけ取り出してみる[:num]を調整することで数変えられる。
         for image in images[:3]:
             file_list.append(image.file_name)
+    """
+    print(file_list)
     return jsonify(file_list)
