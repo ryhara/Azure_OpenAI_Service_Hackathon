@@ -8,4 +8,5 @@ __pycache__/
 uploads/
 ImageLabelDB.db
 chroma
+lang
 *.db
