@@ -55,14 +55,14 @@ class sampleDB:
     self.db = chromadb.Client(
        Settings(
     chroma_db_impl="duckdb+parquet",
-    persist_directory="../instance/chroma"
+    persist_directory="/app/instance/chroma"
         )
     )
     self.collection = self.db.get_or_create_collection(name="image",
-                                                  metadata={"hnsw:space":"cosine"})
+                                                  )
   def search(self,query,k):
     collection = self.db.get_or_create_collection(name="image",
-                                                  metadata={"hnsw:space":"cosine"})
+                                                  )
     query = self.__get_embedding(query)
     results = collection.query(
     query_embeddings=[query], 

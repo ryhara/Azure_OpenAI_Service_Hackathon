@@ -22,7 +22,8 @@ def get_label(image_file):
     resized_image.save(buffer, format='PNG')
     file_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
     ##OpenAIの呼び出し
-    image_caption = get_image_caption(b64_image=file_base64)
+    #image_caption = get_image_caption(b64_image=file_base64)
+    image_caption = "cat"
     return image_caption
 ###この関数使わない
 """
@@ -62,9 +63,8 @@ def delete():
     query = ""
     query = request.args.get('file_name')
     if query:
-        #database = sampleDB()
         Image.delete(query)
-        #database.delete(file_name=query)
+        database.delete(file_name=query)
         os.remove(os.path.join(current_app.config['UPLOAD_FILE_PATH'], query))
         current_app.logger.info("Delete " + query + " from database and file system successfully.")
     return redirect(url_for('image_chat.list'))
@@ -86,7 +86,8 @@ def upload_image():
         if Image.isInSameName(file.filename):
             current_app.logger.warning("Same file name exists")
             return jsonify({"error": "Same file name exists"}), 400
-        database = sampleDB()
+        print(str(file.filename))
+        print(str(label))
         database.insert(file_name=file.filename,
                         label=label)
         file_path = os.path.join(current_app.config['UPLOAD_FILE_PATH'], file.filename)
@@ -105,9 +106,9 @@ def send_message():
     #word_list = get_word_list(user_message)
     #取り出してみる
     #result = ""
-    database = sampleDB()
     print("user_message is {}".format(user_message))
-    file_list = database.search(str(user_message),k=1)
+    print(user_message)
+    file_list = database.search(str(user_message),k=3)
     """
     以下使わない関数
     for word in word_list:
