@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, current_app
 import os
+import markdown
 from langchain_openai import AzureChatOpenAI
 from langchain_openai import AzureOpenAIEmbeddings
 from langchain import PromptTemplate
@@ -67,7 +68,7 @@ def send_message_3_5():
             ユーザーは生徒です。ユーザーは調べ学習の後にプレゼンテーションを行い成果を発表しました。生徒の発表を受けて
             他の生徒はその発表のフィードバックをコメントしました。\n
             発表した生徒はあなたに質問をします。あなたは与えられた文献をもとに生徒の質問に答えてください\n
-            出力は生徒のプレゼンテーションが改善するようなアドバイスの形式で行い、余計な出力はしないでください。
+            出力は生徒のプレゼンテーションが改善するようなアドバイスの形式で行い、大事な箇所にはその文の前後を**で囲うようにしてください。余計な出力はしないでください。
             また回答は英語で行なってください。見やすいように適宜改行を加えることも大事です。\n
             出力が英語であることはとても重要です。英語で解答ができているかどうか出力を生成したあともう一度確認するようにしてください
 
@@ -90,12 +91,39 @@ def send_message_3_5():
                                                         query=user_message))
             ]
         )
-        return str(result.content)
 
+        text = str(result.content)
+        
+        prompt = PromptTemplate(
+            template=f"""
+            あなたは受け取った原稿をMarkDownの形式で出力するアシスタントです。\n
+            原稿の内容は変えず、Markdownの形式で出力をしてください。
+            出力するのはMarkdownの形式のコードのみです。\n
+            出力する前に必ず不必要な文が含まれていないかチェックしてください。
+
+            ###\n
+            {text}\n
+            ###\n
+            """,
+
+            input_variables=[
+            ]
+        )
+        ###話し方についての改善施策の部分はユーザー入力にしてください
+        result = chat(
+            [
+                HumanMessage(content=prompt.format(documents=document_text,
+                                                        query=user_message))
+            ]
+        )
+        md = markdown.Markdown()
+        
+
+        return md.convert(str(result.content))
     ###削除する関数。（削除するかはりょうせいにお任せします）
     #database.delete_collection()
 
-    ##ここまで
+    ##ここまで GPT4の方は変えてません
 
     return csv_file.filename + " Upload successfully !"
 
@@ -162,8 +190,35 @@ def send_message_4():
                                                         query=user_message))
             ]
         )
-        return str(result.content)
+        #return str(result.content)
+    
+        prompt = PromptTemplate(
+            template="""
+            あなたは受け取った原稿をMarkDownの形式で出力するアシスタントです。\n
+            原稿の内容は変えず、Markdownの形式で出力をしてください。次に例を示します。\n
+            
+            # Alien Existence: A Scientific Perspective
 
+            Claims about the existence of aliens lack scientific evidence and are often considered products of popular culture. In modern science, no concrete evidence of extraterrestrial life has been discovered. While the vastness of the universe makes it impossible to completely deny the possibility of life elsewhere, the lack of specific evidence leads us to believe that belief in aliens is influenced by science fiction novels and movies.
+
+            Furthermore, the theory of alien existence is often based on conspiracy theories and claims lacking scientific basis. For example, UFO sightings and alien abduction stories are widely believed despite insufficient evidence. These narratives are often attributed to psychological illusions or media influence, lacking scientific substantiation.
+
+            Moreover, believing in the existence of aliens may hinder scientific inquiry. It tends to undermine the importance of actual scientific discoveries and research, favoring unrealistic fantasies over scientific understanding.
+            ```
+            """,
+
+            input_variables=[
+                "documents",
+                "query"
+            ]
+        )
+        ###話し方についての改善施策の部分はユーザー入力にしてください
+        result = chat(
+            [
+                HumanMessage(content=prompt.format(documents=document_text,
+                                                        query=user_message))
+            ]
+        )
     #database.delete_collection()
 
     ##ここまで
