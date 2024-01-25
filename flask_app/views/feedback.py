@@ -64,10 +64,39 @@ def send_message_3_5():
             ユーザーは生徒です。ユーザーは調べ学習の後にプレゼンテーションを行い成果を発表しました。生徒の発表を受けて
             他の生徒はその発表のフィードバックをコメントしました。\n
             発表した生徒はあなたに質問をします。あなたは与えられた文献をもとに生徒の質問に答えてください\n
-            出力は生徒のプレゼンテーションが改善するようなアドバイスの形式で行い、大事な箇所にはその文の前後を**で囲うようにしてください。余計な出力はしないでください。
-            また回答は英語で行なってください。見やすいように適宜改行を加えることも大事です。\n
+            出力は生徒のプレゼンテーションが改善するようなアドバイスを行い、余計な出力はしないでください。
+            回答は英語で行なってください。\n
             出力が英語であることはとても重要です。英語で解答ができているかどうか出力を生成したあともう一度確認するようにしてください
+            出力は見出しとサブ見出し、本文に分けて箇条書きで行います。具体的には以下の指示に従って出力を作成してください。
+            また以下に示す例を参考に出力を作成してください。
+            最終確認で出力が定められた形式に従っているか確認してください。
+            ##指示
+            ・見出しは### の後にアドバイス全体を包括する内容を示してください。
+            ・サブ見出しはアドバイス一つ一つの概要を示し、内容を**で囲んだ後改行してください。
+            ・本文はサブ見出しの下に具体的なアドバイスの内容についてしめしてください。
+            ・サブ見出しは三つまでにまとめてください。
+            ##例
+            \"\"\"
+            ### Speak more slowly and use visuals
 
+            **you spoke a bit too fast**
+
+            It made it difficult for some of the audience members to follow along. 
+            It would be helpful to slow down your pace and give the audience enough 
+            time to process the information.
+
+            **you relied heavily on text-heavy slides**
+            While it's important to have visual aids, it's also crusial to engage the audience
+            through your words, Instead of reading directly from the slides, try to speak more
+            naturally and use the slides as a visual support
+
+
+            \"\"\"
+            ###最終確認
+            ・出力は英語で作成されているか
+            ・見出し、サブ見出し、本文の構成になっているか
+            ・サブ見出しは箇条書きで書かれているか
+            ・サブ見出しは三つまでの制限を守っているか
             ###文献\n
             {documents}\n
             ###質問\n
@@ -125,16 +154,43 @@ def send_message_4():
             document_text += document.page_content
 
         prompt = PromptTemplate(
-            template="""
+            template=
+            """
             あなたは質問に対して文献を参照して答えを生成するアシスタントです。今からあなたが置かれている状況を
             説明しますのでそれに従って出力してください。\n
             ユーザーは生徒です。ユーザーは調べ学習の後にプレゼンテーションを行い成果を発表しました。生徒の発表を受けて
             他の生徒はその発表のフィードバックをコメントしました。\n
             発表した生徒はあなたに質問をします。あなたは与えられた文献をもとに生徒の質問に答えてください\n
-            出力は生徒のプレゼンテーションが改善するようなアドバイスの形式で行い、余計な出力はしないでください。
-            また回答は英語で行なってください。\n
+            出力は生徒のプレゼンテーションが改善するようなアドバイスを行い、余計な出力はしないでください。
+            回答は英語で行なってください。\n
             出力が英語であることはとても重要です。英語で解答ができているかどうか出力を生成したあともう一度確認するようにしてください
+            出力は見出しとサブ見出し、本文に分けて箇条書きで行います。具体的には以下の指示に従って出力を作成してください。
+            また以下に示す例を参考に出力を作成してください。
+            最終確認で出力が定められた形式に従っているか確認してください。
+            ##指示
+            ・見出しは## の後にアドバイス全体を包括する内容を示してください。
+            ・サブ見出しは### の後にアドバイス一つ一つの概要を示してください。
+            ・本文はサブ見出しの下に具体的なアドバイスの内容についてしめしてください。
+            ##例
+            \"\"\"
+            ## Speak more slowly and use visuals
 
+            ### you spoke a bit too fast
+            It made it difficult for some of the audience members to follow along. 
+            It would be helpful to slow down your pace and give the audience enough 
+            time to process the information.
+
+            ### you relied heavily on text-heavy slides
+            While it's important to have visual aids, it's also crusial to engage the audience
+            through your words, Instead of reading directly from the slides, try to speak more
+            naturally and use the slides as a visual support
+
+
+            \"\"\"
+            ###最終確認
+            ・出力は英語で作成されているか
+            ・見出し、サブ見出し、本文の構成になっているか
+            ・サブ見出しは箇条書きで書かれているか
             ###文献\n
             {documents}\n
             ###質問\n
