@@ -125,6 +125,7 @@
       userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(
         message
       )}</pre>`;
+      chatBox.appendChild(userMessage);
       const postUrl = "/image_chat/send_message";
       fetch(postUrl, {
         method: "POST",
@@ -147,7 +148,6 @@
               botMessage.innerHTML += `<img src="/static/uploads/${item}" alt="Bot" class="response-image" style="margin-right: 10px;"> `;
             });
             chatBox.appendChild(botMessage);
-
             chatBox.appendChild(document.createElement("hr"));
             chatBox.scrollTop = chatBox.scrollHeight;
           },

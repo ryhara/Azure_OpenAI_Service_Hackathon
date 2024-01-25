@@ -39,7 +39,7 @@ build :
 	docker compose -f $(DOCKER_COMPOSE_YML) build --no-cache
 
 up :
-	mkdir -p ./flask_app/static/uploads
+	mkdir -p ./flask_app/static/uploads/csv
 	docker compose -f $(DOCKER_COMPOSE_YML) up -d
 	@echo "\n====================================="
 	@echo "access to http://localhost:5001"
