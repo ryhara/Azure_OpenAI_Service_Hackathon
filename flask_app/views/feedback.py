@@ -29,13 +29,12 @@ def feedback():
 
 @feedback_bp.route('/feedback/send_message/gpt-3-5', methods=['POST'])
 def send_message_3_5():
-    ##ここから
     chat = AzureChatOpenAI(
         api_key = current_app.config['OPENAI_API_KEY'],
         azure_endpoint = current_app.config['OPENAI_ENDPOINT'],
         openai_api_version="2023-05-15",
         azure_deployment="GPT35TURBO")
-    
+
     user_message = request.form.get('message')
     csv_file = request.files.get('csv')
     if csv_file:
@@ -48,14 +47,11 @@ def send_message_3_5():
             pipeline="en_core_web_sm"
         )
         splitted_documents = text_splitter.split_documents(data)
-        ###persist_directoryは/app/instance以下にデータベースとして配置してください
         database.add_documents(
             splitted_documents,
         )
 
-
-    #ここからはユーザ入力がある場合 
-    if user_message:   
+    if user_message:
         documents = database.similarity_search(user_message)
         document_text = ""
         for document in documents:
@@ -84,46 +80,17 @@ def send_message_3_5():
                 "query"
             ]
         )
-        ###話し方についての改善施策の部分はユーザー入力にしてください
         result = chat(
             [
                 HumanMessage(content=prompt.format(documents=document_text,
                                                         query=user_message))
             ]
         )
-
         text = str(result.content)
-        
-        prompt = PromptTemplate(
-            template=f"""
-            あなたは受け取った原稿をMarkDownの形式で出力するアシスタントです。\n
-            原稿の内容は変えず、Markdownの形式で出力をしてください。
-            出力するのはMarkdownの形式のコードのみです。\n
-            出力する前に必ず不必要な文が含まれていないかチェックしてください。
-
-            ###\n
-            {text}\n
-            ###\n
-            """,
-
-            input_variables=[
-            ]
-        )
-        ###話し方についての改善施策の部分はユーザー入力にしてください
-        result = chat(
-            [
-                HumanMessage(content=prompt.format(documents=document_text,
-                                                        query=user_message))
-            ]
-        )
         md = markdown.Markdown()
-        
-
-        return md.convert(str(result.content))
-    ###削除する関数。（削除するかはりょうせいにお任せします）
+        return md.convert(text)
+    ###削除する関数
     #database.delete_collection()
-
-    ##ここまで GPT4の方は変えてません
 
     return csv_file.filename + " Upload successfully !"
 
@@ -134,7 +101,7 @@ def send_message_4():
         azure_endpoint = current_app.config['OPENAI_ENDPOINT'],
         openai_api_version="2023-05-15",
         azure_deployment="GPT4")
-    
+
     user_message = request.form.get('message')
     csv_file = request.files.get('csv')
     if csv_file:
@@ -147,14 +114,11 @@ def send_message_4():
             pipeline="en_core_web_sm"
         )
         splitted_documents = text_splitter.split_documents(data)
-        ###persist_directoryは/app/instance以下にデータベースとして配置してください
         database.add_documents(
             splitted_documents,
         )
 
-
-    #ここからはユーザ入力がある場合 
-    if user_message:   
+    if user_message:
         documents = database.similarity_search(user_message)
         document_text = ""
         for document in documents:
@@ -183,44 +147,14 @@ def send_message_4():
                 "query"
             ]
         )
-        ###話し方についての改善施策の部分はユーザー入力にしてください
         result = chat(
             [
                 HumanMessage(content=prompt.format(documents=document_text,
                                                         query=user_message))
             ]
         )
-        #return str(result.content)
-    
-        prompt = PromptTemplate(
-            template="""
-            あなたは受け取った原稿をMarkDownの形式で出力するアシスタントです。\n
-            原稿の内容は変えず、Markdownの形式で出力をしてください。次に例を示します。\n
-            
-            # Alien Existence: A Scientific Perspective
-
-            Claims about the existence of aliens lack scientific evidence and are often considered products of popular culture. In modern science, no concrete evidence of extraterrestrial life has been discovered. While the vastness of the universe makes it impossible to completely deny the possibility of life elsewhere, the lack of specific evidence leads us to believe that belief in aliens is influenced by science fiction novels and movies.
-
-            Furthermore, the theory of alien existence is often based on conspiracy theories and claims lacking scientific basis. For example, UFO sightings and alien abduction stories are widely believed despite insufficient evidence. These narratives are often attributed to psychological illusions or media influence, lacking scientific substantiation.
-
-            Moreover, believing in the existence of aliens may hinder scientific inquiry. It tends to undermine the importance of actual scientific discoveries and research, favoring unrealistic fantasies over scientific understanding.
-            ```
-            """,
-
-            input_variables=[
-                "documents",
-                "query"
-            ]
-        )
-        ###話し方についての改善施策の部分はユーザー入力にしてください
-        result = chat(
-            [
-                HumanMessage(content=prompt.format(documents=document_text,
-                                                        query=user_message))
-            ]
-        )
+        text = str(result.content)
+        md = markdown.Markdown()
+        return md.convert(text)
     #database.delete_collection()
-
-    ##ここまで
-
     return csv_file.filename + " Upload successfully !"

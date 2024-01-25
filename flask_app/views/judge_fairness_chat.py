@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, curren
 import os
 from openai import AzureOpenAI
 from pypdf import PdfReader
+import markdown
 
 judge_fairness_chat_bp = Blueprint('judge_fairness_chat', __name__)
 
@@ -38,7 +39,9 @@ def send_message_4():
         {"role": "user", "content": prompt}
              ])
     response = completion.choices[0].message.content
-    return response
+    response = completion.choices[0].message.content
+    md = markdown.Markdown()
+    return md.convert(response)
 
 @judge_fairness_chat_bp.route('/judge_fairness_chat/send_message/gpt-3-5', methods=['POST'])
 def send_message_3_5():
@@ -70,4 +73,5 @@ def send_message_3_5():
         {"role": "user", "content": prompt}
              ])
     response = completion.choices[0].message.content
-    return response
+    md = markdown.Markdown()
+    return md.convert(response)
