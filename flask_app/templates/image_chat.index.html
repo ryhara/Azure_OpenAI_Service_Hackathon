@@ -144,7 +144,7 @@
             botMessage.classList.add("mb-1", "bot-message");
             botMessage.innerHTML = `<p><img src="{{ url_for('static', filename='images/penguin.png') }}" alt="Bot" class="image-size"> <strong>Bot</strong></p><pre>`;
             data.forEach(function (item, index) {
-              botMessage.innerHTML += `<img src="/static/uploads/${item}" alt="Bot" class="response-image">`;
+              botMessage.innerHTML += `<img src="/static/uploads/${item}" alt="Bot" class="response-image" style="margin-right: 10px;"> `;
             });
             chatBox.appendChild(botMessage);
 
