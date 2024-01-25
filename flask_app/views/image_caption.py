@@ -110,7 +110,8 @@ result = chat(
 
 
 
-
+#検索をかける機能。話し方の部分はユーザー入力
+documents = database.similarity_search("話し方")
 
 ###削除する関数。
 database.delete_collection()
