@@ -118,4 +118,4 @@ def send_message():
             file_list.append(image.file_name)
     """
     print(file_list)
-    return jsonify(file_list)
+    return jsonify(file_list), 200
