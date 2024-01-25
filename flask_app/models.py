@@ -133,7 +133,7 @@ def get_image_caption(b64_image):
              ]
           }
        ],
-       max_tokens=30
+       max_tokens=15
     )
     image_caption = str(response.choices[0].message.content)
     return image_caption

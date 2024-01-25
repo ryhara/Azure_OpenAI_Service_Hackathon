@@ -15,15 +15,15 @@ def get_label(image_file):
     file_content = image_file.read()
     #base64にする前にリサイズしなきゃいけない気がする。
     file_content = Im.open(BytesIO(file_content))
-    new_width = 90
-    new_height = 90
+    new_width = 50
+    new_height = 50
     resized_image = file_content.resize((new_width, new_height))
     buffer = BytesIO()
     resized_image.save(buffer, format='PNG')
     file_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
     ##OpenAIの呼び出し
-    #image_caption = get_image_caption(b64_image=file_base64)
-    image_caption = "cat"
+    image_caption = get_image_caption(b64_image=file_base64)
+    #image_caption = "cat"
     return image_caption
 ###この関数使わない
 """
