@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, curren
 import os
 from openai import AzureOpenAI
 from pypdf import PdfReader
+import markdown
 
 judge_fairness_chat_bp = Blueprint('judge_fairness_chat', __name__)
 
@@ -70,4 +71,6 @@ def send_message_3_5():
         {"role": "user", "content": prompt}
              ])
     response = completion.choices[0].message.content
+    md = markdown.Markdown()
+    return md.convert(response)
     return response
