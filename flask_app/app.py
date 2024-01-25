@@ -1,12 +1,11 @@
 from flask import render_template, send_from_directory, jsonify
 from flask_app import create_app
-from flask_app.models import db, Image
+from flask_app.models import db, Image,sampleDB
 
 
 app = create_app()
 with app.app_context():
     db.create_all()
-
 @app.route('/')
 def home():
     return render_template('home.index.html')
