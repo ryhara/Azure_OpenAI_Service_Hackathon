@@ -14,3 +14,5 @@ pypdf
 azure-storage-blob
 chromadb==0.3.29
 pillow
+spacy
+langchain_openai
