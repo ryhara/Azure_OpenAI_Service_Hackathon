@@ -166,12 +166,7 @@
     const chatBox = document.getElementById("chat-box");
     const userMessage = document.createElement("div");
     userMessage.classList.add("mb-1", "user-message");
-    if (csvFile) {
-      const inputFileName = "Input: " + csvFile.name;
-      userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(
-        inputFileName
-      )}</pre>`;
-    } else {
+    if (userMessage) {
       userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(
         message
       )}</pre>`;
