@@ -39,7 +39,9 @@ def send_message_4():
         {"role": "user", "content": prompt}
              ])
     response = completion.choices[0].message.content
-    return response
+    response = completion.choices[0].message.content
+    md = markdown.Markdown()
+    return md.convert(response)
 
 @judge_fairness_chat_bp.route('/judge_fairness_chat/send_message/gpt-3-5', methods=['POST'])
 def send_message_3_5():
@@ -73,4 +75,3 @@ def send_message_3_5():
     response = completion.choices[0].message.content
     md = markdown.Markdown()
     return md.convert(response)
-    return response
