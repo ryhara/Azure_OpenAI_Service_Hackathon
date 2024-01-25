@@ -15,13 +15,13 @@
         class="input-group mb-4"
         style="width: 60%; margin-left: 20vw"
       >
-        <label class="input-group-text" for="pdf-input">
-          <i class="bi bi-filetype-pdf"></i>
+        <label class="input-group-text" for="csv-input">
+          <i class="bi bi-filetype-csv"></i>
         </label>
         <input
           type="file"
-          id="pdf-input"
-          accept="application/pdf"
+          id="csv-input"
+          accept="text/csv"
           class="form-control"
           style="display: none"
         />
@@ -103,13 +103,13 @@
 </style>
 
 <script>
-  document.getElementById("pdf-input").addEventListener("change", function () {
-    const label = document.querySelector('label[for="pdf-input"]');
+  document.getElementById("csv-input").addEventListener("change", function () {
+    const label = document.querySelector('label[for="csv-input"]');
     if (this.files.length > 0) {
       const fileName = this.files[0].name;
-      label.innerHTML = '<i class="bi bi-filetype-pdf"></i> ' + fileName;
+      label.innerHTML = '<i class="bi bi-filetype-csv"></i> ' + fileName;
     } else {
-      label.innerHTML = '<i class="bi bi-filetype-pdf"></i>';
+      label.innerHTML = '<i class="bi bi-filetype-csv"></i>';
     }
   });
 </script>
@@ -149,25 +149,25 @@
     e.preventDefault();
     const inputElement = document.getElementById("chat-input");
     const message = inputElement.value.trim();
-    const pdfInput = document.getElementById("pdf-input");
-    const pdfFile = pdfInput ? pdfInput.files[0] : null;
+    const csvInput = document.getElementById("csv-input");
+    const csvFile = csvInput ? csvInput.files[0] : null;
     inputElement.value = "";
-    pdfInput.value = "";
-    if (message === "" && !pdfFile) {
+    csvInput.value = "";
+    if (message === "" && !csvFile) {
       inputElement.style.height = "auto";
       return;
     }
 
     const formData = new FormData();
     if (message !== "") formData.append("message", message);
-    if (pdfFile) formData.append("pdf", pdfFile);
+    if (csvFile) formData.append("csv", csvFile);
 
     inputElement.style.height = "auto";
     const chatBox = document.getElementById("chat-box");
     const userMessage = document.createElement("div");
     userMessage.classList.add("mb-1", "user-message");
-    if (pdfFile) {
-      const inputFileName = "Input: " + pdfFile.name;
+    if (csvFile) {
+      const inputFileName = "Input: " + csvFile.name;
       userMessage.innerHTML = `<p class="text-primary-emphasis"><i class="bi bi-person-fill"></i> <strong>User</strong></p><pre>${escapeHtml(
         inputFileName
       )}</pre>`;
