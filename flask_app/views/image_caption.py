@@ -72,6 +72,9 @@ database = Chroma(
     persist_directory="./data",
     embedding_function=embeddings
 )
+database.add_documents(
+    splitted_documents,
+)
 
 prompt = PromptTemplate(
     template="""
@@ -110,4 +113,4 @@ result = chat(
 
 
 ###削除する関数。
-database.delete(ids = "sample_feedback.csv")
+database.delete_collection()
